@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% -------------------- packages -------------------- %
+
+% page formatting
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+
+% math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{array}
+\usepackage{cancel}
+% \usepackage{breqn}
+
+% floats
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[section]{algorithm}
+\usepackage{algpseudocode}
+\usepackage[font={small,color=darkgray},labelfont=bf,hypcap=true]{caption}
+\usepackage[font={footnotesize,color-darkgray},labelfont=bf,hypcap=true]{subcaption}
+% \usepackage{sidecap}
+
+% graphics
+\usepackage{graphicx}
+\usepackage[pdftex,hyperref,x11names]{xcolor}
+% \usepackage{tikz}
+% \usepackage{pgfplots}
+
+% tables
+\usepackage{multirow}
+\usepackage{booktabs}
+
+% lists
+\usepackage{enumerate}
+\usepackage{paralist}
+
+% header and footer
+\usepackage{fancyhdr}
+
+% footnotes
+\usepackage[bottom]{footmisc}
+
+% ordinal numbers
+\usepackage[super]{nth}
+
+% fonts
+\usepackage[resetfonts]{cmap}
+
+% references
+\usepackage[numbers,square]{natbib}
+\usepackage[pdftex]{hyperref}
+\usepackage{cleveref}
+
+% -------------------------------------------------- %
+
+
+% -------------------- title -------------------- %
+\title{ TITLE }
+\author{
+  \begin{tabular}{c @{$\qquad\qquad$} c}
+    Kyle Moses & Alexandros-Stavros Iliopoulos \\
+    \href{mailto:kmoses@cs.duke.edu}{\texttt{kmoses@cs.duke.edu}} &
+    \href{mailto:ailiop@cs.duke.edu}{\texttt{ailiop@cs.duke.edu}}
+  \end{tabular}}
+\date{\today}
+% ----------------------------------------------- %
+
+
+% -------------------- customizations -------------------- %
+
+% define coloured clickable links
+\hypersetup{%
+pdffitwindow=false,%
+colorlinks,%
+pdfauthor={Kyle Moses, Alexandros-Stavros Iliopoulos},%
+pdftitle={ TITLE },%
+pagebackref=false,%
+citecolor=PaleGreen4,%
+filecolor=DarkOrchid4,%
+linkcolor=OrangeRed4,%
+urlcolor=RoyalBlue4%
+}
+
+% define the includegraphics search path
+\graphicspath{{figs/}{figs/pdf/}{../code/}}
+
+% specify font formatting for listings
+\lstset{basicstyle=\footnotesize\ttfamily}
+
+% force newly defined floats to be ruled
+\floatstyle{ruled}
+
+% create a 'code' float
+\newfloat{prog}{tbp}{loc}[section]
+\floatname{prog}{Program}
+\captionsetup[prog]{font={small,color=darkgray},labelfont=bf,hypcap=true}
+
+% prefix equations, figures and tables with the section number
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\numberwithin{prog}{section}
+
+% define theorems, lemmas and corollaries and make them have contiguous
+% numbers
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% easy command for resetting counters when using section*
+\newcommand{\resetcounters}{
+  \setcounter{subsection}{0}
+  \setcounter{subsubsection}{0}
+  \setcounter{equation}{0}
+  \setcounter{figure}{0}
+  \setcounter{table}{0}
+  \setcounter{prog}{0}
+}
+
+% easy command for boldface math symbols
+\newcommand{\mbs}[1]{\boldsymbol{#1}}
+
+% define a dark gray color to be used in captions
+\definecolor{darkgray}{rgb}{0.25,0.25,0.25}
+
+% define non-abbreviated figure and equation references
+\crefname{figure}{figure}{figures}
+\crefname{equation}{equation}{equations}
+\crefname{prog}{program}{programs}
+
+% define bibliography style
+\bibliographystyle{plain}
+
+% initial header and footer configuration
+\setlength{\headheight}{12.5pt}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\pagestyle{fancyplain}
+
+% redefine 'plain' header style to only contain page number; this is
+% automatically applied to new \maketitle or \chapter pages
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
+}
+
+% customize header and footer contents
+\fancyhead[L]{\fancyplain{}\footnotesize TITLE}
+\fancyhead[R]{\fancyplain{}\footnotesize \leftmark}
+\fancyfoot[C]{\thepage}
+
+% -------------------------------------------------------- %
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% DOCUMENT %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+\onehalfspacing
+
+
+Text goes here.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \bibliography{ @@Bib-file@@ }
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
