@@ -1,0 +1,124 @@
+#! /usr/bin/ns
+
+#
+# SCRIPT
+#
+#     lan2-ospfbridge.ns
+#
+# DESCRIPTION
+#
+#     Create a dumb-bell network topology where 2 LANs are connected
+#     via a 2-router OSPF-enabled bridge.
+#
+# PARAMETERS
+#
+#     LAN_SIZE
+#         Number of nodes that comprise each LAN (excluding the
+#         "relay" node).
+#
+#     OS
+#         The OS image to be loaded in every Emulab node.
+#
+#     {LAN|NET}_BW
+#         Bandwidth of the intra- or inter-LAN links.
+#
+#     {LAN|NET}_DL
+#         Delay on the intra- or inter-LAN links.
+#
+#     NET_Qt
+#         Queue type for the inter-LAN link.
+#
+# AUTHOR
+#
+#     Alexandros-Stavros Iliopoulos <ailiop@cs.duke.edu>
+#
+
+
+
+##################################################
+## INCLUDE
+
+source tb_compat.tcl
+
+
+
+##################################################
+## PARAMETERS
+
+set opt(LAN_SIZE) 1
+
+set opt(OS) UBUNTU11-64-QUAGGA
+
+set opt(LAN_BW) 100Mb
+set opt(LAN_DL) 0.0ms
+
+set opt(NET_BW) 100Mb
+set opt(NET_DL) 0.0ms
+set opt(NET_Qt) DropTail
+
+
+set opt(BRIDGE_PREF) 20.0.0.
+set opt(BRIDGE_MASK) 255.255.255.252
+
+set opt(LAN1_PREF) 30.0.0.
+set opt(LAN2_PREF) 40.0.0.
+set opt(LAN_MASK) 255.255.255.0
+
+
+
+##################################################
+## MAIN SCRIPT
+
+# create the network simulator object
+set ns [new Simulator]
+
+# create the relay nodes and load the desired OS
+set r(1) [$ns node]
+set r(2) [$ns node]
+tb-set-node-os $r(1) $opt(OS)
+tb-set-node-os $r(2) $opt(OS)
+
+# set up the LANs
+set lan1_str "$r(1)"
+set lan2_str "$r(2)"
+for {set i 2} {$i <= [expr $opt(LAN_SIZE) + 1]} {incr i} {
+    # create the LAN nodes
+    set l1($i) [$ns node]
+    set l2($i) [$ns node]
+    # construct the LAN-node-descriptor strings
+    append lan1_str " $l1($i)"
+    append lan2_str " $l2($i)"
+    # load the desired OS
+    tb-set-node-os $l1($i) $opt(OS)
+    tb-set-node-os $l2($i) $opt(OS)
+}
+
+# create the LAN connections
+set lan1 [$ns make-lan "$lan1_str" $opt(LAN_BW) $opt(LAN_DL)]
+set lan2 [$ns make-lan "$lan2_str" $opt(LAN_BW) $opt(LAN_DL)]
+
+# connect the 2 LANs together
+set bridge [$ns duplex-link $r(1) $r(2) $opt(NET_BW) $opt(NET_DL) $opt(NET_Qt)]
+
+# set the LAN IPs
+# ...first the relay nodes
+tb-set-ip-lan $r(1) $lan1 [concat ${opt(LAN1_PREF)}1]
+tb-set-ip-lan $r(2) $lan2 [concat ${opt(LAN2_PREF)}1]
+# ...then the rest of the LAN nodes
+for {set i 2} {$i <= [expr $opt(LAN_SIZE) + 1]} {incr i} {
+    tb-set-ip-lan $l1($i) $lan1 [concat ${opt(LAN1_PREF)}$i]
+    tb-set-ip-lan $l2($i) $lan2 [concat ${opt(LAN2_PREF)}$i]
+}
+
+# set the "bridge" link IPs
+tb-set-ip-link $r(1) $bridge [concat ${opt(BRIDGE_PREF)}1]
+tb-set-ip-link $r(2) $bridge [concat ${opt(BRIDGE_PREF)}2]
+
+# set the subnet masks for both LANs and the bridge link
+tb-set-netmask $lan1 $opt(LAN_MASK)
+tb-set-netmask $lan2 $opt(LAN_MASK)
+tb-set-netmask $bridge $opt(BRIDGE_MASK)
+
+# go!
+$ns run
+
