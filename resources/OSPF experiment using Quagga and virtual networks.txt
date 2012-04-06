@@ -1,0 +1,319 @@
+
+OSPF experiment using Quagga software and virtual network of OpenVZ nodes + EGRE tunnels.
+
+1. Create an emulab experiment using "ospf_setup.ns" setup file.
+2. When Emulab swaps in experiments, it leaves lots of free space on the HDD of the created nodes. 
+   Create partitions on this free space to store virtual machines.
+   To do so, use following commands on all the machines.
+   a. parted 
+   b. print free
+      (Notice the last line it prints the free space. For e.g. a run of this on an emulab machine is)
+--------------------------------------------------------------------------------------------------------
+(parted) print free
+Model: SEAGATE ST3146707LC (scsi)
+Disk /dev/sda: 147GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      32.3kB  3216MB  3216MB  primary  sun-ufs
+ 2      3216MB  6432MB  3216MB  primary  ext3         boot
+ 3      6432MB  6564MB  132MB   primary  linux-swap
+        6564MB  147GB   140GB            Free Space
+--------------------------------------------------------------------------------------------------------
+
+We will create new partition from 6564MB till the end of the disk.
+
+   c. mkpart 
+      (answer the questions as shown below)	
+--------------------------------------------------------------------------------------------------------
+(parted) mkpart
+Partition type?  primary/extended? extended
+Start? 6564MB
+End? -1
+--------------------------------------------------------------------------------------------------------
+Please note that -1 denotes end of the disk for parted.
+
+  d. mkpart (Yes...once again...although answer change this time as shown below)
+--------------------------------------------------------------------------------------------------------
+(parted) mkpart
+Partition type?  [logical]?
+File system type?  [ext2]?
+Start? 6564MB
+End? -1
+(parted)
+--------------------------------------------------------------------------------------------------------
+  e. quit
+  f. fdisk -l -u 
+Output would be something like below
+--------------------------------------------------------------------------------------------------------
+[root@node0 yogesh]# fdisk -l -u
+
+Disk /dev/sda: 146.8 GB, 146815733760 bytes
+255 heads, 63 sectors/track, 17849 cylinders, total 286749480 sectors
+Units = sectors of 1 * 512 = 512 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1              63     6281414     3140676   a5  FreeBSD
+/dev/sda2   *     6281415    12562829     3140707+  83  Linux
+/dev/sda3        12562830    12819869      128520   82  Linux swap / Solaris
+/dev/sda4        12819870   286749479   136964805    f  W95 Ext'd (LBA)
+/dev/sda5        12819933   286749479   136964773+  83  Linux
+
+Disk /dev/sdb: 146.8 GB, 146815733760 bytes
+255 heads, 63 sectors/track, 17849 cylinders, total 286749480 sectors
+Units = sectors of 1 * 512 = 512 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              63   286744184   143372061   83  Linux
+[root@node0 yogesh]#
+--------------------------------------------------------------------------------------------------------
+   g. Formate the new partition in ext3 FS. Use command "mkfs -t ext3 new_partition"
+For e.g. in this case:
+[root@node0 yogesh]# mkfs -t ext3 /dev/sda5
+  h. Create a new directory to mount this partition "mkdir /vz"
+  i. Edit /etc/fstab so that this directory will be mounted automatically.
+for example, in this case add following command to /etc/fstab at the end
+
+/dev/sda5 /vz ext3    defaults  0 0
+ 
+  j. Mount the new partition using 'mount -a'
+
+3. Now install the OpenVZ kernel with EGRE module. Execute following on all four nodes. 
+   a. Copy the source code of the kernel to /vz/ using following command.
+      git clone git://143.215.129.52/home/yogesh/git_repository/vn-with-openvz
+      Enter the kernel directory.	
+   b. Compile the kernel using "time make"
+   c. Compile modules using "time make modules"
+   d. Install modules using "time make modules_install"
+   e. Install kernel using "make install"
+   f. To boot using newly installed kernel, modify the "default" entry to new kernel in the file "/boot/grub/grub.conf"
+     (Usually this means changing the "default to 0)
+   g Please make sure the following steps are performed before rebooting into OpenVZ kernel.
+
+     sysctl
+     There are a number of kernel parameters that should be set for OpenVZ to work correctly. These parameters are stored in      /etc/sysctl.conf file. Here are the relevant portions of the file; please edit accordingly.
+--------------------------------------------------------------------------------------------------------
+# On Hardware Node we generally need
+# packet forwarding enabled and proxy arp disabled
+net.ipv4.ip_forward = 1
+net.ipv4.conf.default.proxy_arp = 0
+
+# Enables source route verification
+net.ipv4.conf.all.rp_filter = 1
+
+# Enables the magic-sysrq key
+kernel.sysrq = 1
+
+# We do not want all our interfaces to send redirects
+net.ipv4.conf.default.send_redirects = 1
+net.ipv4.conf.all.send_redirects = 0
+--------------------------------------------------------------------------------------------------------
+
+SELinux
+SELinux should be disabled. To that effect, put the following line to /etc/sysconfig/selinux:
+--------------------------------------------------------------------------------------------------------
+SELINUX=disabled
+--------------------------------------------------------------------------------------------------------
+   h. reboot
+   i. Verify that you are running the new kernel using "uname -a"  
+
+4. Install utilities on all the machines by executing following 
+   a. cd /etc/yum.repos.d && wget http://download.openvz.org/openvz.repo && rpm --import  http://download.openvz.org/RPM-GPG-Key-OpenVZ && cd
+   b. yum -y install vzctl vzquota bridge-utils
+   c. service vz start
+   d. yum -y install vzpkg vzyum vzrpm43-python vzrpm44-python vzctl-lib
+   e. yum -y install vztmpl-fedora-core-5 
+   f. wget http://download.openvz.org/template/precreated/fedora-core-5-i386-minimal.tar.gz       
+   g. mv fedora-core-5-i386-minimal.tar.gz /vz/template/cache/fedora-core-5-i386-minimal.tar.gz
+   h. modprobe gre
+   i. In the checked out directory, there is the iproute source package which is required to be installed to create the
+      gre tunnels. Compile it using "make". After compilation enter directory ip by "cd ip/"
+
+Setting up the Virtual network of OpenVZ nodes 
+-------------------------------------------------------------------------------------
+
+Execute following on all four nodes
+
+1. vzctl create 101 --ostemplate fedora-core-5-minimal
+2. for CAP in net_admin net_raw sys_admin; do vzctl set 101 --capability ${CAP}:on --save ; done
+3. vzctl start 101
+4. vzyum 101 -y install tcpdump quagga emacs telnet
+
+Node0 - physical machine with 4 interfaces i.e. machine connected to all the others
+-------------------------------------------------------------------------------------
+Execute following commands
+
+1. vzctl set 101 --netif_add eth0,00:43:34:56:78:0A,veth101.0,00:43:34:56:88:0B --save
+2. vzctl set 101 --netif_add eth1,00:43:34:56:78:1A,veth101.1,00:43:34:56:88:1B --save
+3. vzctl set 101 --netif_add eth2,00:43:34:56:78:2A,veth101.2,00:43:34:56:88:2B --save
+4. vzctl enter 101
+5. ifconfig eth0 13.0.0.59/24
+6. ifconfig eth1 11.0.0.53/24
+7. ifconfig eth2 7.0.0.37/24
+8. ifconfig lo up
+4. vzctl exit 101
+9. brctl addbr br0
+10. brctl addbr br1
+11. brctl addbr br2
+12. brctl addif br0 veth101.0
+13. brctl addif br1 veth101.1
+14. brctl addif br2 veth101.2
+15. cd /users/yogesh/iproute-2.6.20-070313/ip/
+16. ./ip tunnel add egre0 mode gre type eth local 10.1.2.2 remote 10.1.2.3 key 5
+17. ./ip tunnel add egre1 mode gre type eth local 10.1.3.2 remote 10.1.3.3 key 6
+18. ./ip tunnel add egre2 mode gre type eth local 10.1.1.2 remote 10.1.1.3 key 7
+19. brctl addif br0 egre0
+20. brctl addif br1 egre1
+21. brctl addif br2 egre2
+22. ./ip link set egre0 up
+23. ./ip link set egre1 up
+24. ./ip link set egre2 up
+25. ifconfig br0 up
+26. ifconfig br1 up
+27. ifconfig br2 up
+
+Node1
+-----
+
+1. vzctl set 101 --netif_add eth0,00:47:34:56:78:0A,veth101.0,00:47:34:56:88:0B --save
+2. vzctl enter 101
+3. ifconfig eth0 13.0.0.57/24
+4. ifconfig lo up
+4. vzctl exit 101
+5. brctl addbr br0
+5. brctl addif br0 veth101.0
+6. cd /users/yogesh/iproute-2.6.20-070313/ip/
+7. ./ip tunnel add egre0 mode gre type eth local 10.1.2.3 remote  10.1.2.2 key 5
+8. brctl addif br0 egre0
+9. ./ip link set egre0 up
+10. ifconfig br0 up
+
+Node2
+-----
+
+1. vzctl set 101 --netif_add eth0,00:53:34:56:78:0A,veth101.0,00:53:34:56:88:0B --save
+2. vzctl enter 101
+3. ifconfig eth0 11.0.0.47/24
+4. ifconfig lo up
+4. vzctl exit 101
+9. brctl addbr br0
+12. brctl addif br0 veth101.0
+15. cd /users/yogesh/iproute-2.6.20-070313/ip/
+17. ./ip tunnel add egre0 mode gre type eth local 10.1.3.3 remote  10.1.3.2 key 6
+19. brctl addif br0 egre0
+9. ./ip link set egre0 up
+10. ifconfig br0 up
+
+
+Node3
+------
+
+1. vzctl set 101 --netif_add eth0,00:53:34:56:78:0A,veth101.0,00:53:34:56:88:0B --save
+2. vzctl enter 101
+3. ifconfig eth0 7.0.0.31/24
+4. ifconfig lo up
+4. exit 101
+9. brctl addbr br0
+12. brctl addif br0 veth101.0
+15. cd /users/yogesh/iproute-2.6.20-070313/ip/
+18. ./ip tunnel add egre0 mode gre type eth local 10.1.1.3 remote  10.1.1.2 key 7
+19. brctl addif br0 egre0
+9. ./ip link set egre0 up
+10. ifconfig br0 up
+
+Now on all the nodes execute following
+-----------------------------------------
+
+0. vzyum 101 install quagga
+1. vzctl enter 101
+2. Add like "password zebra" to file /etc/quagga/zebra.conf
+3. service zebra start
+4. add line "127.0.0.1 localhost" to file /etc/hosts
+5. touch /etc/sysconfig/network
+6. mv /etc/quagga/ospfd.conf.sample /etc/quagga/ospfd.conf
+7. service ospfd start
+
+Node0:
+------
+
+5. enter zebra "telnet localhost 2601"  (password is  zebra as set above)
+6. enable
+7. configure terminal
+8. interface eth0
+9. ip address 13.0.0.59/24
+10. exit
+11. interface eth1
+12. ip address 11.0.0.53/24
+13. exit
+14. interface eth2
+15. ip address 7.0.0.37/24
+16. exit
+17. write memory
+18. exit
+19. exit
+20. telnet localhost 2604
+21. enable
+22. configure terminal
+23. router ospf
+24. network 13.0.0.0/24 area 13
+25. network 11.0.0.0/24 area 11
+26. network 7.0.0.0/24 area 7
+27. write memory
+
+Node1:
+------
+
+5. enter zebra "telnet localhost 2601"
+6. enable
+7. configure terminal
+8. interface eth0
+9. ip address 13.0.0.57/24
+10. exit
+17. write memory
+18. exit
+19. exit
+20. telnet localhost 2604
+21. enable
+22. configure terminal
+23. router ospf
+24. network 13.0.0.0/24 area 13
+25. write memory
+
+Node2:
+------
+
+5. enter zebra "telnet localhost 2601"
+6. enable
+7. configure terminal
+8. interface eth0
+9. ip address 11.0.0.47/24
+10. exit
+17. write memory
+18. exit
+19. exit
+20. telnet localhost 2604
+21. enable
+22. configure terminal
+23. router ospf
+24. network 11.0.0.0/24 area 11
+25. write memory
+
+Node3:
+------
+
+5. enter zebra "telnet localhost 2601"
+6. enable
+7. configure terminal
+8. interface eth0
+9. ip address 7.0.0.31/24
+10. exit
+17. write memory
+18. exit
+19. exit
+20. telnet localhost 2604
+21. enable
+22. configure terminal
+23. router ospf
+24. network 7.0.0.0/24 area 7
+25. write memory
