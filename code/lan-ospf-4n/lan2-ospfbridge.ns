@@ -16,8 +16,8 @@
 #         Number of nodes that comprise each LAN (excluding the
 #         "relay" node).
 #
-#     OS
-#         The OS image to be loaded in every Emulab node.
+#     {LAN|NET}_OS
+#         The OS image to be loaded in the LAN PCs or the relay nodes.
 #
 #     {LAN|NET}_BW
 #         Bandwidth of the intra- or inter-LAN links.
@@ -26,7 +26,23 @@
 #         Delay on the intra- or inter-LAN links.
 #
 #     NET_Qt
-#         Queue type for the inter-LAN link.
+#         Queue type for the inter-LAN relay link.
+#
+#     {LAN{X}|BRIDGE}_PREF
+#         The IP prefix for the interface to the LAN #X or bridge
+#         (relay) links.
+#
+#     {LAN_|BRIDGE}_MASK
+#         The IP subnet mask for the interface to the LAN or bridge
+#         (relay) links. Essentially defines the CIDR class for the
+#         relevant interface. All LAN interfaces are assumed to have
+#         the same mask.
+#
+#     START_CMD
+#         A command to be issued to every node on start-up.
+#
+#     START_LOG
+#         File to redirect all of the start-up command's output to.
 #
 # AUTHOR
 #
@@ -47,22 +63,24 @@ source tb_compat.tcl
 
 set opt(LAN_SIZE) 1
 
-set opt(OS) UBUNTU11-64-QUAGGA
-
+set opt(LAN_OS) FBSD9-WITHSRC
 set opt(LAN_BW) 100Mb
-set opt(LAN_DL) 0.0ms
+set opt(LAN_DL) 20.0ms
 
-set opt(NET_BW) 100Mb
-set opt(NET_DL) 0.0ms
+set opt(NET_OS) UBUNTU11-64-QUAGGA
+set opt(NET_BW) 20Mb
+set opt(NET_DL) 40.0ms
 set opt(NET_Qt) DropTail
-
 
 set opt(BRIDGE_PREF) 20.0.0.
 set opt(BRIDGE_MASK) 255.255.255.252
 
 set opt(LAN1_PREF) 30.0.0.
 set opt(LAN2_PREF) 40.0.0.
-set opt(LAN_MASK) 255.255.255.0
+set opt(LAN_MASK)  255.255.255.0
+
+set opt(START_CMD) "./prepare-quagga.csh"
+set opt(START_LOG) "/tmp/startup.log"
 
 
 
@@ -75,8 +93,8 @@ set ns [new Simulator]
 # create the relay nodes and load the desired OS
 set r(1) [$ns node]
 set r(2) [$ns node]
-tb-set-node-os $r(1) $opt(OS)
-tb-set-node-os $r(2) $opt(OS)
+tb-set-node-os $r(1) $opt(NET_OS)
+tb-set-node-os $r(2) $opt(NET_OS)
 
 # set up the LANs
 set lan1_str "$r(1)"
@@ -89,8 +107,8 @@ for {set i 2} {$i <= [expr $opt(LAN_SIZE) + 1]} {incr i} {
     append lan1_str " $l1($i)"
     append lan2_str " $l2($i)"
     # load the desired OS
-    tb-set-node-os $l1($i) $opt(OS)
-    tb-set-node-os $l2($i) $opt(OS)
+    tb-set-node-os $l1($i) $opt(LAN_OS)
+    tb-set-node-os $l2($i) $opt(LAN_OS)
 }
 
 # create the LAN connections
@@ -119,6 +137,15 @@ tb-set-netmask $lan1 $opt(LAN_MASK)
 tb-set-netmask $lan2 $opt(LAN_MASK)
 tb-set-netmask $bridge $opt(BRIDGE_MASK)
 
+# have all nodes run the start-up command
+# ...first the relay nodes
+tb-set-node-startcmd $r(1) "$opt(START_CMD) >& $opt(START_LOG)"
+tb-set-node-startcmd $r(2) "$opt(START_CMD) >& $opt(START_LOG)"
+# ...then the rest of the LAN nodes
+for {set i 2} {$i <= [expr $opt(LAN_SIZE) + 1]} {incr i} {
+    tb-set-node-startcmd $l1($i) "$opt(START_CMD) >& $opt(START_LOG)"
+    tb-set-node-startcmd $l2($i) "$opt(START_CMD) >& $opt(START_LOG)"
+}
+
 # go!
 $ns run
-
