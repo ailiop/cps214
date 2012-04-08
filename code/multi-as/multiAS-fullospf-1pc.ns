@@ -8,9 +8,12 @@
 # DESCRIPTION
 #
 #     Create a multi-AS topology, where every AS is comprised of
-#     routers over full-mesh OSPF and each router is connected to 1 PC
-#     via a LAN connection. Route information is exchanged among ASs
-#     via BGP.
+#     routers over full-mesh OSPF. Route information is exchanged
+#     among ASs via BGP.
+#
+#     There are 2 PC nodes in the network: One is connecter to router
+#     #1 in AS 40 and the other is connected to router #1 in AS
+#     50. The router-PC connections are made via LAN.
 #
 #     The inter-AS network topology is as follows:
 #       ---------      ---------      ---------      ---------
