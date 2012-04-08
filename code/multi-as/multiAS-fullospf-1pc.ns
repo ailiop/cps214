@@ -139,12 +139,12 @@ for {set a 10} {$a <= 50} {set a [expr $a + 10]} {
     for {set r 1} {$r <= $opt(AS_SIZE)} {incr r} {
 
 	# routers
-	set rt($a)($r) [$ns node]
-	tb-set-node-os $rt($a)($r) $opt(RT_OS)
+	set rt($a-$r) [$ns node]
+	tb-set-node-os $rt($a-$r) $opt(RT_OS)
 
 	# PCs
-	set pc($a)($r) [$ns node]
-	tb-set-node-os $pc($a)($r) $opt(PC_OS)
+	set pc($a-$r) [$ns node]
+	tb-set-node-os $pc($a-$r) $opt(PC_OS)
 
     }  ;# end for (counter r)
     
@@ -152,31 +152,29 @@ for {set a 10} {$a <= 50} {set a [expr $a + 10]} {
     for {set ri 1} {$ri <= $opt(AS_SIZE)} {incr ri} {
 
 	# router-PC (LAN) links
-	set lan($a)($ri) [$ns make-lan "$rt($a)($ri) $pc($a)($ri)" $opt(LAN_BW) $opt(LAN_DL)]
+	set lan($a-$ri) [$ns make-lan "$rt($a-$ri) $pc($a-$ri)" $opt(LAN_BW) $opt(LAN_DL)]
 
 	# router-router (INT) links
 	for {set rj [expr $ri + 1]} {$rj <= $opt(AS_SIZE)} {incr rj} {
-	    set int($a)($ri$rj) [$ns duplex-link $rt($a)($ri) $rt($a)($rj) $opt(INT_BW) $opt(INT_DL) $opt(INT_Qt)]
+	    set int($a-$ri$rj) [$ns duplex-link $rt($a-$ri) $rt($a-$rj) $opt(INT_BW) $opt(INT_DL) $opt(INT_Qt)]
 	}  ;# end for (counter rj)
 
     }  ;# end for (counter ri)
 
     # set up the IPs for intra-AS links
     # (for routers, also fix the interfaces)
-    for {set ri 1} {$ri <= $opt(AS_SIZE)} {incr i} {
+    for {set ri 1} {$ri <= $opt(AS_SIZE)} {incr ri} {
 
 	# LAN links
-	tb-set-ip-lan $pc($a)($ri) $lan($a)($ri) ${a}.0.${ri}.2
-	tb-set-ip-lan $rt($a)($ri) $lan($a)($ri) ${a}.0.${ri}.1
-	tb-fix-interface $rt($a)($ri) $lan($a)($ri) $opt(LAN_IF)
+	tb-set-ip-lan $pc($a-$ri) $lan($a-$ri) ${a}.0.${ri}.2
+	tb-set-ip-lan $rt($a-$ri) $lan($a-$ri) ${a}.0.${ri}.1
+	tb-fix-interface $rt($a-$ri) $lan($a-$ri) $opt(LAN_IF)
 
 	# INT (router-to-router) links
-	for {set rj 1} {$rj <= $opt(AS_SIZE)} {incr rj} {
-	    if {$rj == $ri} {
-		continue
-	    }
-	    tb-set-ip-link $rt($a)($ri) $int($a)($ri$rj) ${a}.0.0.${ri}${rj}
-	    tb-fix-interface $rt($a)($ri) $int($a)($ri$rj) $opt(INT_IF)
+	for {set rj [expr $ri + 1]} {$rj <= $opt(AS_SIZE)} {incr rj} {
+	    tb-set-ip-link $rt($a-$ri) $int($a-$ri$rj) ${a}.0.0.${ri}${rj}
+	    tb-set-ip-link $rt($a-$rj) $int($a-$ri$rj) ${a}.0.0.${rj}${ri}
+	    tb-fix-interface $rt($a-$ri) $int($a-$ri$rj) $opt(INT_IF)
 	}  ;# end for (counter rj)
 
     }  ;# end for (counter ri)
@@ -185,11 +183,11 @@ for {set a 10} {$a <= 50} {set a [expr $a + 10]} {
     for {set ri 1} {$ri <= $opt(AS_SIZE)} {incr ri} {
 
 	# LAN links
-	tb-set-netmask $lan($a)($ri) $opt(MASK)
+	tb-set-netmask $lan($a-$ri) $opt(MASK)
 
 	# router-router links
 	for {set rj [expr $ri + 1]} {$rj <= $opt(AS_SIZE)} {incr rj} {
-	    tb-set-netmask $int($a)($ri$rj) $opt(MASK)
+	    tb-set-netmask $int($a-$ri$rj) $opt(MASK)
 	}  ;# end for (counter rj)
 
     }  ;# end for (counter ri)
@@ -200,39 +198,39 @@ for {set a 10} {$a <= 50} {set a [expr $a + 10]} {
 ## INTER-AS CONFIGURATION
 
 # create the inter-AS links
-set ext(1040) [$ns duplex-link $rt(10)(1) $rt(40)(1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
+set ext(1040) [$ns duplex-link $rt(10-1) $rt(40-1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
 
-set ext(1030) [$ns duplex-link $rt(10)(1) $rt(30)(1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
+set ext(1030) [$ns duplex-link $rt(10-1) $rt(30-1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
 
-set ext(3050) [$ns duplex-link $rt(30)(1) $rt(50)(1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
+set ext(3050) [$ns duplex-link $rt(30-1) $rt(50-1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
 
-set ext(1020) [$ns duplex-link $rt(10)(2) $rt(20)(1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
+set ext(1020) [$ns duplex-link $rt(10-2) $rt(20-1) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
 
-set ext(2050) [$ns duplex-link $rt(20)(1) $rt(50)(2) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
+set ext(2050) [$ns duplex-link $rt(20-1) $rt(50-2) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
 
 # set up the IPs
-tb-set-ip-link $rt(10)(1) $ext(1040) ${opt(EXT_PREF)}.11
-tb-set-ip-link $rt(40)(1) $ext(1040) ${opt(EXT_PREF)}.41
-tb-set-ip-link $rt(10)(1) $ext(1030) ${opt(EXT_PREF)}.11
-tb-set-ip-link $rt(30)(1) $ext(1030) ${opt(EXT_PREF)}.31
-tb-set-ip-link $rt(30)(1) $ext(3050) ${opt(EXT_PREF)}.31
-tb-set-ip-link $rt(50)(1) $ext(3050) ${opt(EXT_PREF)}.51
-tb-set-ip-link $rt(10)(2) $ext(1020) ${opt(EXT_PREF)}.12
-tb-set-ip-link $rt(20)(1) $ext(1020) ${opt(EXT_PREF)}.21
-tb-set-ip-link $rt(20)(1) $ext(2050) ${opt(EXT_PREF)}.21
-tb-set-ip-link $rt(50)(2) $ext(2050) ${opt(EXT_PREF)}.52
+tb-set-ip-link $rt(10-1) $ext(1040) ${opt(EXT_PREF)}.11
+tb-set-ip-link $rt(40-1) $ext(1040) ${opt(EXT_PREF)}.41
+tb-set-ip-link $rt(10-1) $ext(1030) ${opt(EXT_PREF)}.11
+tb-set-ip-link $rt(30-1) $ext(1030) ${opt(EXT_PREF)}.31
+tb-set-ip-link $rt(30-1) $ext(3050) ${opt(EXT_PREF)}.31
+tb-set-ip-link $rt(50-1) $ext(3050) ${opt(EXT_PREF)}.51
+tb-set-ip-link $rt(10-2) $ext(1020) ${opt(EXT_PREF)}.12
+tb-set-ip-link $rt(20-1) $ext(1020) ${opt(EXT_PREF)}.21
+tb-set-ip-link $rt(20-1) $ext(2050) ${opt(EXT_PREF)}.21
+tb-set-ip-link $rt(50-2) $ext(2050) ${opt(EXT_PREF)}.52
 
 # fix the interface names
-tb-fix-interface $rt(10)(1) $ext(1040) $opt(EXT_IF)
-tb-fix-interface $rt(40)(1) $ext(1040) $opt(EXT_IF)
-tb-fix-interface $rt(10)(1) $ext(1030) $opt(EXT_IF)
-tb-fix-interface $rt(30)(1) $ext(1030) $opt(EXT_IF)
-tb-fix-interface $rt(30)(1) $ext(3050) $opt(EXT_IF)
-tb-fix-interface $rt(50)(1) $ext(3050) $opt(EXT_IF)
-tb-fix-interface $rt(10)(2) $ext(1020) $opt(EXT_IF)
-tb-fix-interface $rt(20)(1) $ext(1020) $opt(EXT_IF)
-tb-fix-interface $rt(20)(1) $ext(2050) $opt(EXT_IF)
-tb-fix-interface $rt(50)(2) $ext(2050) $opt(EXT_IF)
+tb-fix-interface $rt(10-1) $ext(1040) $opt(EXT_IF)
+tb-fix-interface $rt(40-1) $ext(1040) $opt(EXT_IF)
+tb-fix-interface $rt(10-1) $ext(1030) $opt(EXT_IF)
+tb-fix-interface $rt(30-1) $ext(1030) $opt(EXT_IF)
+tb-fix-interface $rt(30-1) $ext(3050) $opt(EXT_IF)
+tb-fix-interface $rt(50-1) $ext(3050) $opt(EXT_IF)
+tb-fix-interface $rt(10-2) $ext(1020) $opt(EXT_IF)
+tb-fix-interface $rt(20-1) $ext(1020) $opt(EXT_IF)
+tb-fix-interface $rt(20-1) $ext(2050) $opt(EXT_IF)
+tb-fix-interface $rt(50-2) $ext(2050) $opt(EXT_IF)
 
 # set the subnet masks
 tb-set-netmask $ext(1040) $opt(MASK)
@@ -248,9 +246,9 @@ tb-set-netmask $ext(2050) $opt(MASK)
 for {set a 10} {$a <= 50} {set a [expr $a + 10]} {
     for {set r 1} {$r <= $opt(AS_SIZE)} {incr r} {
 	# PCs
-	tb-set-node-startcmd $pc($a)($r) "$opt(PC_START_CMD) >& $opt(START_LOG)"
+	tb-set-node-startcmd $pc($a-$r) "$opt(PC_START_CMD) >& $opt(START_LOG)"
 	# routers
-	tb-set-node-startcmd $rt($a)($r) "$opt(RT_START_CMD) >& $opt(START_LOG)"
+	tb-set-node-startcmd $rt($a-$r) "$opt(RT_START_CMD) >& $opt(START_LOG)"
     }  ;# end for (counter r)
 }  ;# end for (counter a)
 
