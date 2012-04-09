@@ -1,0 +1,6 @@
+interface lo
+ip forwarding
+!
+log stdout
+line vty
+!

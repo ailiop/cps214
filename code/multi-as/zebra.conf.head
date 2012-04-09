@@ -1,0 +1,7 @@
+! -*- zebra -*-
+!
+! Zebra configuration file
+!
+hostname zebrad
+password zebra
+!

@@ -1,0 +1,7 @@
+! -*- bgp -*-
+!
+! BGP configuration file
+!
+hostname bgpd
+password zebra
+!
