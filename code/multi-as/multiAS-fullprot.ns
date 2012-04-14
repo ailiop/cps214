@@ -178,16 +178,17 @@ proc get_ip30 {ipcounter} {
 
 
 # 'export_array' exports all information in an array to the specified
-# file; each array entry is put in a separate file.
+# file; each array entry is put in a separate line.
 proc export_array {arrayname filename} {
 
     # have arr reference the actual array object
     upvar $arrayname arr
 
     # open a stream to the output file
-    set fstream [open $filename w 0777]
+    set fstream [open $filename w]
 
-    puts $fstream "POUTSA"
+    # disable buffering for the output file stream
+    fconfigure $fstream -buffering none
 
     # export the array's contents
     foreach {name value} [array get arr] {
@@ -201,6 +202,34 @@ proc export_array {arrayname filename} {
     close $fstream
 
 };  # end proc 'export_array'
+
+
+# 'export_array_unix' exports all information in an array to the
+# specified file; each array entry is put in a separate line. The
+# difference from 'export_array' is that this procedure makes use of
+# UNIX-specific commands to create/truncate the output file and to
+# write data into it.
+proc export_array_unix {arrayname filename} {
+
+    # # equivalent to what the 'w' option does with the 'open' TCL
+    # # command; i.e. if the output file exists, it is truncated to zero
+    # # length, otherwise an empty file is created.
+    # exec "if (-e $filename) rm -f $filename; touch $filename"
+
+    # create the output file, or truncate it to zero length if it
+    # already exists
+    set fstream [open $filename w]
+    close $fstream
+
+    # have arr reference the actual array object
+    upvar $arrayname arr
+
+    # export the array's contents
+    foreach {name value} [array get arr] {
+	exec echo $name $value >> $filename
+    };  # end foreach
+
+};  # end proc 'export_array_unix'
 
 
 
@@ -347,22 +376,7 @@ close $descfile
 
 ## EXPORT LOG
 
-export_array logarray $opt(LINKS_LOG)
-
-# set logfile [open $opt(LINKS_LOG) w]
-
-# puts $logfile "TEST!"
-
-# # export the logged data
-# foreach {name value} [array get logarray] {
-#     puts $logfile "$name $value"
-# };  # end foreach
-
-# # make sure the data are output
-# flush $logfile
-
-# # close the file stream
-# close $logfile
+export_array_unix logarray $opt(LINKS_LOG)
 
 
 ## NETWORK INVOCATION
