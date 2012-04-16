@@ -98,13 +98,6 @@
 #     START_LOG
 #         File to redirect all of the start-up command's output to.
 #
-# LIMITATION
-#
-#     Due to the current IP assignment scheme (and the fact that all
-#     IPs are set to be in the same /8 class), the number of routers
-#     or ASes cannot be greater than 9. (This should not be too bad,
-#     given that Emulab resources are limited anyway.)
-#
 # AUTHOR
 #
 #     Alexandros-Stavros Iliopoulos <ailiop@cs.duke.edu>
