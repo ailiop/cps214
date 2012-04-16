@@ -1,6 +1,7 @@
 #! /bin/csh
 
-set NODE = `hostname | awk -F. '{print $1}'`
+# set NODE = `hostname | awk -F. '{print $1}'`
+set NODE = $1
 
 set IF_IP_FILE = IF_IPs-$NODE
 

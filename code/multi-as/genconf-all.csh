@@ -1,7 +1,8 @@
 #! /bin/csh
 
 set BIN_DIR = /proj/DukeCPS214/exp/multi-as-fullprot/bin
-set EXP_DIR = ~/exp/multi-as-fullprot
+# set EXP_DIR = ~/exp/multi-as-fullprot
+set EXP_DIR = /proj/DukeCPS214/exp/multi-as-fullprot
 set AWK_IFIP = if-ip.awk
 
 set GEN_ZEBRA = "$BIN_DIR/genconf-zebra.csh"
@@ -15,15 +16,15 @@ cd $EXP_DIR
 set IF_IP_FILE = IF_IPs-$NODE
 
 if ( -e $IF_IP_FILE ) then
-    rm $IF_IP_FILE
+    rm -f $IF_IP_FILE
 endif
 touch $IF_IP_FILE
 
 ifconfig | awk -f $AWK_IFIP >> $IF_IP_FILE
 
-eval $GEN_ZEBRA
-eval $GEN_OSPF
-eval $GEN_BGP
+eval "$GEN_ZEBRA $NODE"
+eval "$GEN_OSPF $NODE"
+eval "$GEN_BGP $NODE"
 
 cd ~
 

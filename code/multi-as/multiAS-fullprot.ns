@@ -122,7 +122,7 @@ source tb_compat.tcl
 ##################################################
 ### PARAMETERS
 
-set opt(AS_NUM)  2
+set opt(AS_NUM) 3
 set opt(AS_SIZE) 2
 
 set opt(LAN_NUM_AS) 1
@@ -152,12 +152,11 @@ set opt(MASK_LAN) 255.255.255.0
 set opt(MASK_INT) 255.255.255.252
 set opt(MASK_EXT) 255.255.255.252
 
-# set opt(LINKS_LOG)     "/users/ailiop/links.log"
 set opt(LINKS_LOG)     "/proj/DukeCPS214/exp/multi-as-fullprot/links.log"
 
-set opt(EXT_DESC_FILE) "/users/ailiop/inter-as-connections.txt"
+set opt(EXT_DESC_FILE) "/proj/DukeCPS214/exp/multi-as-fullprot/inter-as-connections.txt"
 
-set opt(PC_START_PROG) "/proj/DukeCSP214/exp/multi-as-fullprot/bin/startup-pc.csh"
+set opt(PC_START_PROG) "/proj/DukeCPS214/exp/multi-as-fullprot/bin/startup-pc.csh"
 set opt(RT_START_PROG) "/proj/DukeCPS214/exp/multi-as-fullprot/bin/startup-rt.csh"
 set opt(START_LOG)     "/tmp/startup.log"
 
@@ -344,12 +343,12 @@ set descfile [open $opt(EXT_DESC_FILE) r]
 while {[set len [gets $descfile line]] >= 0} {
 
     # skip empty lines or lines starting with '#'
-    if {!($len) || [regexp {^#} $line match]} {
+    if {!($len) || [regexp {^#} $line]} {
 	continue
     };  # end if
 
     # read line: SRC_ASN SRC_ROUTERIDX TARGET_ASN TARGET_ROUTERIDX
-    regexp {([0-9]+) +([0-9]+) +([0-9]+) ([0-9]+)} $line match a1 r1 a2 r2
+    regexp {([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+)} $line match a1 r1 a2 r2
 
     # create the inter-AS link
     set ext($a1-$r1-$a2-$r2) [$ns duplex-link $rt($a1-$r1) $rt($a2-$r2) $opt(EXT_BW) $opt(EXT_DL) $opt(EXT_Qt)]
@@ -362,8 +361,8 @@ while {[set len [gets $descfile line]] >= 0} {
     tb-set-ip-link $rt($a2-$r2) $ext($a1-$r1-$a2-$r2) $ip2
 
     # log
-    set logarray(rt-$a-$r1,$ip1) rt-$a-$r2,$ip2
-    set logarray(rt-$a-$r2,$ip2) rt-$a-$r1,$ip1
+    set logarray(rt-$a1-$r1,$ip1) rt-$a2-$r2,$ip2
+    set logarray(rt-$a2-$r2,$ip2) rt-$a1-$r1,$ip1
 
     # set the subnet masks
     tb-set-netmask $ext($a1-$r1-$a2-$r2) $opt(MASK_EXT)
@@ -392,7 +391,7 @@ for {set a 1} {$a <= $opt(AS_NUM)} {incr a} {
     # PCs
     for {set l 1} {$l <= $opt(LAN_NUM_AS)} {incr l} {
 	for {set p 1} {$p <= $opt(LAN_SIZE)} {incr p} {
-	    tb-set-node-startcmd $pc($a-$l-$p) "$opt(PC_START_PROG) >& $opt(START_LOG)"
+	    tb-set-node-startcmd $pc($a-$l-$p) "$opt(PC_START_PROG) $opt(LAN_PREF) $opt(AS_NUM) >& $opt(START_LOG)"
 	};  # end for (counter p)
     };  # end for (counter l)
 

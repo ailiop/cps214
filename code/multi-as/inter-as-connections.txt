@@ -1,0 +1,35 @@
+# 
+# INTER-AS BGP SESSION DESCRIPTOR FILE (inter-as-connections.txt)
+#
+# Every line instructs the creation of a duplex inter-AS link.
+#
+# Syntax: {ASN_1} {ROUTERIDX_1} {ASN_2} {ROUTERIDX_2}
+#
+# This descriptor file is intended for use with the Emulab network
+# configuration script 'multiAS-fullprot.ns'. As such, it is (and has to
+# be) independent of the IPs of the routers.
+#
+# The inter-AS network topology described by this descriptor file is as
+# follows:
+#
+#       --------      --------      --------      --------
+#       | AS 1 |------| AS 2 |------| AS 3 |------| AS 4 |
+#       --------      --------      --------      --------
+#                        |         /   |
+#                        |      __/    |
+#                        |     /       |   
+#                        |    /        |
+#                     --------      --------
+#                     | AS 5 |------| AS 6 |
+#                     --------      --------
+#
+#
+
+1 1 2 1
+2 1 3 1
+#3 1 4 1
+#2 2 5 1
+#5 1 3 2
+#3 2 6 1
+#5 2 6 2
+1 2 3 1
