@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{RON}
+David Andersen, Hari Balakrishnan, Frans Kaashoek, and Robert Morris.
+\newblock Resilient overlay networks.
+\newblock {\em {ACM} {SIGCOMM} Computer Communication Review}, 32(1):66,
+  January 2002.
+
+\bibitem{SRON}
+David Sontag, Yang Zhang, Amar Phanishayee, David~G. Andersen, and David
+  Karger.
+\newblock Scaling {All-Pairs} overlay routing.
+\newblock In {\em Proceedings of the 5th international conference on Emerging
+  networking experiments and technologies}, {CoNEXT} '09, pages 145--156, Rome,
+  Italy, 2009. {ACM} Press.
+
+\end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.11.12)  27 MAR 2012 01:41
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.11)  22 APR 2012 17:50
 entering extended mode
  %&-line parsing enabled.
 **\input project-cps214.tex
@@ -458,12 +458,12 @@ LaTeX Info: Redefining \Crefrange on input line 1607.
 Package cleveref Info: loaded `english' language definitions on input line 3148
 .
 )
-Package hyperref Info: Option `pdffitwindow' set `false' on input line 93.
-Package hyperref Info: Option `colorlinks' set `true' on input line 93.
+Package hyperref Info: Option `pdffitwindow' set `false' on input line 78.
+Package hyperref Info: Option `colorlinks' set `true' on input line 78.
 
 
 Package hyperref Warning: Option `pagebackref' has already been used,
-(hyperref)                setting the option has no effect on input line 93.
+(hyperref)                setting the option has no effect on input line 78.
 
 \@float@every@prog=\toks36
 \c@prog=\count136
@@ -471,20 +471,20 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (./project-cps214.aux)
 \openout1 = `project-cps214.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 172.
-LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 174.
+LaTeX Font Info:    ... okay on input line 174.
 
 *geometry auto-detecting driver*
 *geometry detected driver: pdftex*
@@ -514,7 +514,7 @@ driver: pdftex
 \oddsidemargin  0.0pt
 \evensidemargin 0.0pt
 \topmargin  -37.0pt
-\headheight 12.5pt
+\headheight 15.2pt
 \headsep    25.0pt
 \footskip   30.0pt
 \marginparwidth 59.0pt
@@ -531,7 +531,7 @@ driver: pdftex
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count139
 \scratchdimen=\dimen148
@@ -544,7 +544,7 @@ Package caption Info: End \AtBeginDocument code.
 \MPnumerator=\count143
 \everyMPtoPDFconversion=\toks38
 )
-Package hyperref Info: Link coloring ON on input line 172.
+Package hyperref Info: Link coloring ON on input line 174.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -553,54 +553,60 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 172.
-LaTeX Info: Redefining \pageref on input line 172.
+LaTeX Info: Redefining \ref on input line 174.
+LaTeX Info: Redefining \pageref on input line 174.
 
 (./project-cps214.out) (./project-cps214.out)
 \@outlinefile=\write3
 \openout3 = `project-cps214.out'.
 
 \AtBeginShipoutBox=\box33
-LaTeX Info: Redefining \ref on input line 172.
-LaTeX Info: Redefining \ref on input line 172.
+LaTeX Info: Redefining \ref on input line 174.
+LaTeX Info: Redefining \ref on input line 174.
 <<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
-LaTeX Font Info:    Try loading font information for U+msa on input line 175.
+LaTeX Font Info:    Try loading font information for U+msa on input line 177.
  (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 175.
+LaTeX Font Info:    Try loading font information for U+msb on input line 177.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 175.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 177.
 
 (/usr/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )<<ot1tt.cmap>>
-
-Package caption Warning: Unused \captionsetup[prog] on input line 107.
-See the caption package documentation for explanation.
-
+(./abstract.tex) (./introduction.tex) (./network.tex) (./ron.tex)
+(./ruby-ron.tex) (./experiment.tex) (./conclusions.tex) (./project-cps214.bbl
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./project-cps214.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+
+Package caption Warning: Unused \captionsetup[prog] on input line 92.
+See the caption package documentation for explanation.
+
+[2] (./project-cps214.aux) ) 
 Here is how much of TeX's memory you used:
- 10646 strings out of 494964
- 163082 string characters out of 1180491
- 297137 words of memory out of 3000000
- 13637 multiletter control sequences out of 15000+50000
- 9547 words of font info for 38 fonts, out of 3000000 for 9000
- 81 hyphenation exceptions out of 8191
- 38i,13n,43p,341b,309s stack positions out of 5000i,500n,10000p,200000b,50000s
-</
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmtt12.pfb>
-Output written on project-cps214.pdf (1 page, 44790 bytes).
+ 10735 strings out of 493848
+ 164210 string characters out of 1152823
+ 301502 words of memory out of 3000000
+ 13762 multiletter control sequences out of 15000+50000
+ 12078 words of font info for 46 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 38i,12n,49p,341b,321s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx1
+2.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmtt12.pfb>
+Output written on project-cps214.pdf (2 pages, 118329 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 2 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 89 PDF objects out of 1000 (max. 8388607)
+ 13 named destinations out of 1000 (max. 500000)
+ 77 words of extra memory for PDF output out of 10000 (max. 10000000)
 

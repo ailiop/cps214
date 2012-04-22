@@ -2,8 +2,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PREAMBLE
 
 
 % -------------------- packages -------------------- %
@@ -28,7 +27,7 @@
 \usepackage[section]{algorithm}
 \usepackage{algpseudocode}
 \usepackage[font={small,color=darkgray},labelfont=bf,hypcap=true]{caption}
-\usepackage[font={footnotesize,color-darkgray},labelfont=bf,hypcap=true]{subcaption}
+\usepackage[font={footnotesize,color=darkgray},labelfont=bf,hypcap=true]{subcaption}
 % \usepackage{sidecap}
 
 % graphics
@@ -62,20 +61,6 @@
 \usepackage[pdftex]{hyperref}
 \usepackage{cleveref}
 
-% -------------------------------------------------- %
-
-
-% -------------------- title -------------------- %
-\title{ TITLE }
-\author{
-  \begin{tabular}{c @{$\qquad\qquad$} c}
-    Kyle Moses & Alexandros-Stavros Iliopoulos \\
-    \href{mailto:kmoses@cs.duke.edu}{\texttt{kmoses@cs.duke.edu}} &
-    \href{mailto:ailiop@cs.duke.edu}{\texttt{ailiop@cs.duke.edu}}
-  \end{tabular}}
-\date{\today}
-% ----------------------------------------------- %
-
 
 % -------------------- customizations -------------------- %
 
@@ -83,8 +68,8 @@
 \hypersetup{%
 pdffitwindow=false,%
 colorlinks,%
-pdfauthor={Kyle Moses, Alexandros-Stavros Iliopoulos},%
-pdftitle={ TITLE },%
+pdfauthor={Alexandros-Stavros Iliopoulos},%
+pdftitle={CPS 214: Project report},%
 pagebackref=false,%
 citecolor=PaleGreen4,%
 filecolor=DarkOrchid4,%
@@ -120,12 +105,12 @@ urlcolor=RoyalBlue4%
 
 % easy command for resetting counters when using section*
 \newcommand{\resetcounters}{
-  \setcounter{subsection}{0}
-  \setcounter{subsubsection}{0}
-  \setcounter{equation}{0}
-  \setcounter{figure}{0}
-  \setcounter{table}{0}
-  \setcounter{prog}{0}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{prog}{0}
 }
 
 % easy command for boldface math symbols
@@ -143,7 +128,7 @@ urlcolor=RoyalBlue4%
 \bibliographystyle{plain}
 
 % initial header and footer configuration
-\setlength{\headheight}{12.5pt}
+\setlength{\headheight}{15.2pt}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0pt}
 \fancyhf{}
@@ -152,22 +137,39 @@ urlcolor=RoyalBlue4%
 % redefine 'plain' header style to only contain page number; this is
 % automatically applied to new \maketitle or \chapter pages
 \fancypagestyle{plain}{%
-  \renewcommand{\headrulewidth}{0pt}%
-  \fancyhf{}%
-  \fancyfoot[C]{\thepage}%
+\renewcommand{\headrulewidth}{0pt}%
+\fancyhf{}%
+\fancyfoot[C]{\thepage}%
 }
 
 % customize header and footer contents
-\fancyhead[L]{\fancyplain{}\footnotesize TITLE}
-\fancyhead[R]{\fancyplain{}\footnotesize \leftmark}
+\fancyhead[L]{\fancyplain{}\footnotesize Alexandros-Stavros Iliopoulos}
+\fancyhead[R]{\fancyplain{}\footnotesize CPS 214: Project report}
 \fancyfoot[C]{\thepage}
 
-% -------------------------------------------------------- %
+% words with accents that are annoying to type
+\newcommand{\naive}{na\"{i}ve}
+\newcommand{\visavis}{vis-\`a-vis}
+
+
+% -------------------- title -------------------- %
+
+\title{\textbf{CPS 214: Project report}}
+\author{%
+  \begin{tabular}{c @{\qquad} c}
+    Alexandros-Stavros Iliopoulos & Kyle Moses\\
+    \href{mailto:ailiop@cs.duke.edu}{\texttt{ailiop@cs.duke.edu}}
+    & \href{mailto:kmoses@cs.duke.edu}{\texttt{kmoses@cs.duke.edu}}
+  \end{tabular}\\\\
+  Duke University}
+\date{\today}
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%% DOCUMENT %%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT
 
 \begin{document}
 
@@ -175,16 +177,57 @@ urlcolor=RoyalBlue4%
 \onehalfspacing
 
 
-Text goes here.
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
 
+
+\section{Introduction}
+\label{sec:intro}
+
+\input{introduction.tex}
+
+
+\section{\emph{Emulab}: Testing network implementation}
+\label{sec:network}
+
+\input{network.tex}
+
+
+\section{Resilient Overlay Network (RON)}
+\label{sec:implementation}
+
+INTRODUCTORY TEXT FOR THE SECTION GOES HERE.
+
+\subsection{The RON image}
+\label{sec:ron}
+
+\input{ron.tex}
+
+\subsection{A minimal-functionality implementation}
+\label{sec:ruby-ron}
+
+\input{ruby-ron.tex}
+
+
+\section{Case study: \emph{OpenVPN}}
+\label{sec:experiment}
+
+\input{experiment.tex}
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+\input{conclusions.tex}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% REFERENCES
 
-% \bibliography{ @@Bib-file@@ }
+\nocite{*}
+\bibliography{refs.bib}
 
 
 \end{document}

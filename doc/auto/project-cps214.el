@@ -1,12 +1,24 @@
 (TeX-add-style-hook "project-cps214"
  (lambda ()
+    (LaTeX-add-bibliographies
+     "refs.bib")
     (LaTeX-add-environments
      "theorem"
      "lemma"
      "corollary")
+    (LaTeX-add-labels
+     "sec:intro"
+     "sec:network"
+     "sec:implementation"
+     "sec:ron"
+     "sec:ruby-ron"
+     "sec:experiment"
+     "sec:conclusions")
     (TeX-add-symbols
      '("mbs" 1)
-     "resetcounters")
+     "resetcounters"
+     "naive"
+     "visavis")
     (TeX-run-style-hooks
      "cleveref"
      "natbib"
@@ -29,7 +41,6 @@
      "x11names"
      "graphicx"
      "subcaption"
-     "color-darkgray}"
      "caption"
      "algpseudocode"
      "algorithm"
@@ -48,5 +59,12 @@
      "latex2e"
      "art11"
      "article"
-     "11pt")))
+     "11pt"
+     "abstract"
+     "introduction"
+     "network"
+     "ron"
+     "ruby-ron"
+     "experiment"
+     "conclusions")))
 
