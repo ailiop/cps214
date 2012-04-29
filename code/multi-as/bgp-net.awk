@@ -45,7 +45,6 @@ END {
     print "router bgp " ASN;
     print "!";
     print "bgp router-id " min_ip_nolan;
-    print "redistribute connected";
     print "redistribute ospf";
     print "!";
 

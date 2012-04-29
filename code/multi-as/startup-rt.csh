@@ -6,7 +6,7 @@ set EXP_DIR = ~/exp/multi-as-fullprot
 set NODE = `hostname | awk -F. '{print $1}'`
 
 eval "$BIN_DIR/prepare-quagga.csh"
-eval "$BIN_DIR/genconf-all.csh"
-eval "$BIN_DIR/init-daemons.csh"
+eval "$BIN_DIR/genconf-all.csh $NODE"
+eval "$BIN_DIR/init-daemons.csh $NODE"
 
 exit 0

@@ -56,12 +56,13 @@ set OSPF_CONF_B  = ospf
 set BGP_CONF_B   = bgp
 
 set QUAGGA_LIB = /usr/lib/quagga
-set CONF_DIR = $HOME/exp/multi-as-fullprot
+set CONF_DIR   = $HOME/exp/multi-as-fullprot
 
 set ZEBRA_D = zebra
-set OSPF_D = ospfd
-set BGP_D = bgpd
-set FLAGS_D = "-u root -d"
+set OSPF_D  = ospfd
+set BGP_D   = bgpd
+#set FLAGS_D = "-u root -d"
+set FLAGS_D = "-d"
 
 set ACTIVE_D_CMD = ( "ps -e | grep -E '(${ZEBRA_D}|${OSPF_D}|${BGP_D})'" )
 set LCOUNT_CMD = "wc -l"
@@ -73,7 +74,8 @@ set NUM_D_CMD = ( ${ACTIVE_D_CMD} | ${LCOUNT_CMD} )
 ## MAIN SCRIPT
 
 # get node's name
-set NODE = `hostname | awk -F. '{print $1}'`
+set NODE = $1
+# set NODE = `hostname | awk -F. '{print $1}'`
 
 # build configuration file names
 set ZEBRA_CONF = ${ZEBRA_CONF_B}-${NODE}.${CONF_EXT}

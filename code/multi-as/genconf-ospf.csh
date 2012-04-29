@@ -1,13 +1,12 @@
 #! /bin/csh
 
-# set NODE = `hostname | awk -F. '{print $1}'`
 set NODE = $1
 
 set IF_IP_FILE = IF_IPs-$NODE
 
 set CONF_HEAD_FILE = "ospf.conf.head"
 set CONF_TAIL_FILE = "ospf.conf.tail"
-set CONF_FILE = "ospf-$NODE.conf"
+set CONF_FILE      = "ospf-$NODE.conf"
 
 set AWK_GETNET = "awk -F. -f ospf-net.awk"
 

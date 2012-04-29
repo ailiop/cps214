@@ -2,8 +2,6 @@
 
 # set NODE = `hostname | awk -F. '{print $1}'`
 set NODE = $1
-# set ASN  = `echo $NODE | awk -F- '{print $2}'`
-# set RTN  = `echo $NODE | awk -F- '{print $3}'`
 
 set LINKS_LOG_FILE = "/proj/DukeCPS214/exp/multi-as-fullprot/links.log"
 set IF_IP_FILE     = IF_IPs-$NODE

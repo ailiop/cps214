@@ -82,6 +82,14 @@
 #         script. This log file will contain IP information about each
 #         created link in the network topology.
 #
+#     SIZES_LOG
+#         The path to a log file that will be output by the
+#         script. This log file will simply contain the network's
+#         size-related parameters (AS_NUM, AS_SIZE, LAN_NUM_AS,
+#         LAN_SIZE). It may then be accessed by the script
+#         'refresh-allnodes.csh' in order to re-initialise all network
+#         nodes after a reboot.
+#
 #     EXT_DESC_FILE
 #         The path to the descriptor file that defines the inter-AS
 #         (EXT) links. The descriptor file must adhere to a specific
@@ -115,11 +123,11 @@ source tb_compat.tcl
 ##################################################
 ### PARAMETERS
 
-set opt(AS_NUM) 3
-set opt(AS_SIZE) 2
+set opt(AS_NUM) 8
+set opt(AS_SIZE) 3
 
 set opt(LAN_NUM_AS) 1
-set opt(LAN_SIZE)   1
+set opt(LAN_SIZE)   2
 
 set opt(PC_OS) FBSD9-RON
 set opt(RT_OS) UBUNTU11-64-QUAGGA
@@ -146,6 +154,7 @@ set opt(MASK_INT) 255.255.255.252
 set opt(MASK_EXT) 255.255.255.252
 
 set opt(LINKS_LOG)     "/proj/DukeCPS214/exp/multi-as-fullprot/links.log"
+set opt(SIZES_LOG)     "/proj/DukeCPS214/exp/multi-as-fullprot/sizes.log"
 
 set opt(EXT_DESC_FILE) "/proj/DukeCPS214/exp/multi-as-fullprot/inter-as-connections.txt"
 
@@ -171,6 +180,10 @@ proc get_ip30 {ipcounter} {
 
 # 'export_array' exports all information in an array to the specified
 # file; each array entry is put in a separate line.
+#
+# **WARNING** does not work as expected in Emulab, because the Emulab
+# .ns parser removes any output data after the network topology is
+# initialised.
 proc export_array {arrayname filename} {
 
     # have arr reference the actual array object
@@ -202,11 +215,6 @@ proc export_array {arrayname filename} {
 # UNIX-specific commands to create/truncate the output file and to
 # write data into it.
 proc export_array_unix {arrayname filename} {
-
-    # # equivalent to what the 'w' option does with the 'open' TCL
-    # # command; i.e. if the output file exists, it is truncated to zero
-    # # length, otherwise an empty file is created.
-    # exec "if (-e $filename) rm -f $filename; touch $filename"
 
     # create the output file, or truncate it to zero length if it
     # already exists
@@ -294,7 +302,7 @@ for {set a 1} {$a <= $opt(AS_NUM)} {incr a} {
     # set the LAN IPs
     for {set l 1} {$l <= $opt(LAN_NUM_AS)} {incr l} {
 
-	# router
+	# router (gateway)
 	set ip $opt(LAN_PREF).$a.$l.$opt(LAN_GW_IP)
 	tb-set-ip-lan $rt($a-$l) $lan($a-$l) $ip
 
@@ -366,9 +374,17 @@ while {[set len [gets $descfile line]] >= 0} {
 close $descfile
 
 
-## EXPORT LOG
+## EXPORT LOGS
 
+# export information for all links
 export_array_unix logarray $opt(LINKS_LOG)
+
+# export the network size parameters
+set sizelog(AS_NUM) $opt(AS_NUM)
+set sizelog(AS_SIZE) $opt(AS_SIZE)
+set sizelog(LAN_NUM_AS) $opt(LAN_NUM_AS)
+set sizelog(LAN_SIZE) $opt(LAN_SIZE)
+export_array_unix sizelog $opt(SIZES_LOG)
 
 
 ## NETWORK INVOCATION

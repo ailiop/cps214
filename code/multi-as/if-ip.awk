@@ -10,7 +10,7 @@ BEGIN {
     if (is_eth_if) {
 	split( $2, ipaddr, ":" );
 
-	if (ipaddr[2] ~ /^155[.]98[.]39[.]/)
+	if (ipaddr[2] ~ /^155[.]98[.]/)
 	    if_cidr_curr = if_cidr_eth0;
 	else if (ipaddr[2] ~ /^10[.]/)
 	    if_cidr_curr = if_cidr_LAN;

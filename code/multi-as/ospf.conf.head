@@ -6,5 +6,5 @@ hostname ospfd
 password zebra
 !
 router ospf
-redistribute connected metric 0
+redistribute connected metric 100
 redistribute bgp metric 0
