@@ -1,17 +1,84 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{9}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{RON}
-David Andersen, Hari Balakrishnan, Frans Kaashoek, and Robert Morris.
+\bibitem[Aamoth(2011)]{Aamoth_2011}
+Doug Aamoth.
+\newblock {PlayStation} network attacks may cost {Sony} \$170+ million.
+\newblock \emph{Time Magazine}, May 2011.
+\newblock URL
+  \url{http://techland.time.com/2011/05/23/playstation-network-attacks-may-cos%
+t-sony-170-million/}.
+
+\bibitem[Andersen et~al.(2001)Andersen, Balakrishnan, Kaashoek, and
+  Morris]{Andersen_2001}
+David~G. Andersen, Hari Balakrishnan, Frans Kaashoek, and Robert Morris.
 \newblock Resilient overlay networks.
-\newblock {\em {ACM} {SIGCOMM} Computer Communication Review}, 32(1):66,
-  January 2002.
+\newblock In \emph{Proceedings of the 18th ACM Symposium on Operating Systems
+  Principles}, SOSP '01, pages 131--145, October 2001.
+\newblock URL \url{http://doi.acm.org/10.1145/502034.502048}.
 
-\bibitem{SRON}
+\bibitem[Baldine(2000)]{Baldine_2000}
+Illia Baldine.
+\newblock Divert sockets mini-{HOWTO}, February 2000.
+\newblock URL
+  \url{http://www.faqs.org/docs/Linux-mini/Divert-Sockets-mini-HOWTO.html}.
+
+\bibitem[Broad et~al.(2011)Broad, Markoff, and Sanger]{Broad_2011}
+William~J. Broad, John Markoff, and David~E. Sanger.
+\newblock {Israeli} test on worm called crucial in {Iran} nuclear delay.
+\newblock \emph{The New York Times}, January 2011.
+\newblock URL
+  \url{http://www.nytimes.com/2011/01/16/world/middleeast/16stuxnet.html?pagew%
+anted=all}.
+
+\bibitem[Brook(2011)]{Brook_2011}
+Christopher Brook.
+\newblock Anonymous {Finland} wages war on mining, leaks 500,000 e-mails.
+\newblock \emph{{Kaspersky} labs security news service}, November 2011.
+\newblock URL
+  \url{http://threatpost.com/en_us/blogs/anonymous-finland-wages-war-mining-le%
+aks-500000-e-mails-111411}.
+
+\bibitem[Institute(2011)]{Ponemon_2011}
+Ponemon Institute.
+\newblock Second annual cost of cyber crime study: {Benchmark} study of {U.S.}
+  companies.
+\newblock Technical report, August 2011.
+\newblock URL
+  \url{http://www.arcsight.com/collateral/whitepapers/2011_Cost_of_Cyber_Crime%
+_Study_August.pdf}.
+\newblock Sponsored by {ArcSight}, an {HP} company.
+
+\bibitem[Saranow~Schultz(2011)]{Schultz_2011}
+Jennifer Saranow~Schultz.
+\newblock The rising cost of identity theft for consumers.
+\newblock \emph{The New York Times}, February 2011.
+\newblock URL
+  \url{http://bucks.blogs.nytimes.com/2011/02/09/the-rising-cost-of-identity-t%
+heft-for-consumers/}.
+
+\bibitem[Sontag et~al.(2009)Sontag, Zhang, Phanishayee, Andersen, and
+  Karger]{Sontag_2009}
 David Sontag, Yang Zhang, Amar Phanishayee, David~G. Andersen, and David
   Karger.
 \newblock Scaling {All-Pairs} overlay routing.
-\newblock In {\em Proceedings of the 5th international conference on Emerging
+\newblock In \emph{Proceedings of the 5th international conference on Emerging
   networking experiments and technologies}, {CoNEXT} '09, pages 145--156, Rome,
   Italy, 2009. {ACM} Press.
+\newblock URL \url{http://portal.acm.org/citation.cfm?doid=1658939.1658956}.
+
+\bibitem[White et~al.(2002)White, Lepreau, Stoller, Ricci, Guruprasad, Newbold,
+  Hibler, Barb, and Joglekar]{Emulab}
+Brian White, Jay Lepreau, Leigh Stoller, Robert Ricci, Shashi Guruprasad, Mac
+  Newbold, Mike Hibler, Chad Barb, and Abhijeet Joglekar.
+\newblock An integrated experimental environment for distributed systems and
+  networks.
+\newblock \emph{{ACM} {SIGOPS} Operating Systems Review}, 36\penalty0
+  ({SI}):\penalty0 255--270, December 2002.
+\newblock URL \url{http://portal.acm.org/citation.cfm?doid=844128.844152}.
 
 \end{thebibliography}

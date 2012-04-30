@@ -1,6 +1,185 @@
-DESCRIPTION OF RON IMAGE AND RELATED PROBLEMS GO HERE.
+A Resilient Overlay Network is a communications architecture designed to
+improve the performance of distributed applications in the presence of Wide
+Area Network path degradation or outages.  Most WANs are large and complex
+domains, the Internet being foremost among them.  In order for routing to
+scale in such environments, trade-offs in precision must occur.
+Maintaining a link state database on a large WAN is nearly impossible, as
+simply passing the messages back and forth would quickly cripple most
+networks and WAN latencies would negatively impact the accuracy of any such
+database even if someone managed to sustain one.  Border Gateway Protocol
+is the current standard for Internet routing and it divides the Internet
+into Autonomous Systems that heavily filter communications with each other,
+typically providing only summary link and network status updates instead of
+detailed information about internal routing.  This filtering is a key
+aspect of the scalability of BGP, but along with other features of BGP it
+results in routing outages that can range from 30 to 180 seconds after a
+link failure~\cite{Andersen_2001}.  Typically, the length of an AS path
+plays a large part in dictating the point in this range where a particular
+outage will fall; intuitively, a longer AS path will usually take more
+time to re-converge.  This can be attributed to the potential for more
+conflicting updates in a highly meshed system like the Internet.
+
+A RON is able to improve performance in these situations by reducing the
+scale of the network to include its member nodes only.  This significant
+scale reduction allows the RON to recover the ability to maintain a full
+link state database when the underlying network protocols cannot.  A RON is
+able to improve performance over BGP in these situations due to physical
+path redundancy and active probing/polling.  Most Autonomous Systems are
+connected to several other systems and it is also rare for any system to
+only have a single link to any of its neighbors.  BGP is slower to
+recognize such alternative paths because they are typically filtered out of
+communication between ASes~\cite{Andersen_2001}.
+
+The primary limitation of any RON is its size constraints.  The original
+RON system was empirically tested to scale to approximately 50 nodes and a
+revision in the link state update system called Scalable RON improved this
+upper limit to approximately 300 nodes~\cite{Sontag_2009}.  The scaling
+problem is the same fundamental issue faced by regular routing protocols
+such as BGP and no solutions for further scaling have been proposed to
+date.  Interestingly, any significant improvement in scaling would likely
+have far-reaching implications for graph theory in general, not just
+networking.  Fortunately, the scaling issue has little impact on our
+project, since 50 to 300 nodes is a more than adequate range for most VPNs
+and many other distributed systems.
+
+
+\subsection{Creating an Emulab-compatible RON image}
+\label{sec:ron-image}
+
+Initially, we thought that creating a functional RON image for use with
+Emulab would be a simple and quick portion of our experiment.
+Unfortunately, our assumptions were incorrect and this phase of the project
+actually proved to be rather challenging.  The original RON paper was
+published in October 2001 and the source code was maintained through 2005
+by the authors, but after that fell into disuse as research efforts at MIT
+and CMU shifted to other projects.  In 2009, the RON research group
+published an additional paper titled Scalable Resilient Overlay Networks
+that improved functionality by allowing efficient link-state update in
+networks up to 300 nodes.  The scalable RON code is also available, but is
+a completely separate implementation in Java and only seems to run as a
+simulation.
+
+Since no fully functional source code was available, we elected to work on
+a basic port of the original RON code to move it from its original OS
+environment (Free-BSD 4.3) to a modern system (Free-BSD 9).  We briefly
+considered utilizing Ubuntu Linux instead of Free-BSD, but RON relies on
+two kernel modules unique to Free-BSD: IP Firewall (\texttt{ipfw}) and
+Divert Sockets (\texttt{ipdivert}).  Used in conjunction, these two modules
+allow raw IP packets to be captured at the interface level and diverted to
+any program on a specified listening port, which allowed RON to capture
+traffic that originated from other systems or from any network application.
+Similar functionality was briefly supported in Linux through IP Chains, but
+no support exists beyond Linux kernel 2.12~\cite{Baldine_2000}.  Since
+these modules were instrumental to RON, we decided to abandon the Linux
+port and continue using Free-BSD.
+
+Even under Free-BSD, building an image proved challenging.  We were briefly
+excited by the presence of an old RON image in the Emulab archives, but
+unfortunately the image was built on Free-BSD 4.3 and was too old to work
+on any machines currently available in the Emulab cluster.  Additional
+challenges came from limited documentation and reliance on several old
+libraries including Berkeley DB3 and an MIT in-house library called
+\texttt{net-util}.  Both libraries are no longer actively maintained,
+though we were able to find and compile old source code.  These libraries
+and the RON source code included many deprecated/obsolete programming
+abstractions that we updated to work with the latest version of
+\texttt{gcc}.  After a few weeks of work we had a basic Free-BSD image that
+would compile and complete all included unit tests successfully.
+
+We briefly celebrated, and then quickly realized our image problems were
+not over!  The additional issues we encountered were unique to the
+environment of Emulab.  Every time we locally compiled Free-BSD's kernel
+with the IP Firewall and Divert Sockets modules there was no problem, but
+any attempt to uses these modules on an Emulab system would cause it to
+fail and become unresponsive immediately after booting.  It wasn't even
+possible to log into the systems through Emulab's back door console system.
+After extensive troubleshooting, we learned that when IP Firewall is
+enabled it immediately blocks all network traffic by default!  This
+“feature” was therefore blocking access from the Emulab control network and
+thereby preventing the successful application of all Emulab start-up
+scripts, which caused the control system to register a boot failure every
+time.  The solution to this problem was to create a startup script that
+dynamically added both modules after Emulab's boot process and then
+immediately modified the Firewall rules to allow all traffic by default.
+
+After this final phase of troubleshooting, we finally had a ``fully
+functional'' ported RON image that passed some basic connectivity testing,
+but failed to improve resiliency in our test network, as shown in the
+performance chart in \cref{sec:performance}.  We spent several weeks
+attempting to debug the errors, but only found that the RON routing tables
+were failing to properly update in the presence of a routing failure.  Even
+when all links were cut, a node would continue to claim it had direct
+routes to all other nodes in the RON.  Our current intuition is that some
+of the code modifications made for the port might be generating some form
+of run-time error, but a lack of thorough documentation and code comments
+has made it very difficult to attempt meaningful troubleshooting, even with
+some help from the program authors.
+
+Due to these difficulties with the RON image we decided to slightly alter
+our project and began development of a new simple RON system written
+entirely in Ruby.
+
+
+\subsection{Ruby-RON}
+\label{sec:ruby-ron}
+
+We chose Ruby as our base language due to its intuitive high-level
+abstractions, extensive built-in libraries, and platform independence.  The
+goal of our simple RON implementation is to provide applications with a
+simple messaging interface that will allow them to choose between their
+regular communications channels or a secure encrypted channel from the RON
+that supports one-hop indirection for resiliency.  Our current
+implementation can be broken into four components:
+\begin{inparaenum}[(a)]
+\item Initialization/Membership,
+\item Link-State Server,
+\item Link-State Client, and
+\item a Messaging Daemon
+\end{inparaenum}
+
+Currently, Ruby-RON is initialized from a local text file containing the IP
+addresses of all member nodes.  This results in a static membership set,
+which would be maintained by an administrator.  Some applications might
+find use for dynamic membership, but we removed this feature for
+simplicity.  Additionally, static control is a desirable feature for a VPN
+system which is our current target application.
+
+The Link-State Server is a simple TCP agent running in an independent
+thread that operates on each member node.  When queried by any client
+process, the server provides an update message containing the link state of
+all its local connections.  Currently, the Server reads its link state data
+directly from a Fibonacci-heap priority queue running in the local client
+process.  This data structure is very efficient for routing, but look-ups
+for a specific key other than the current minimum are slow.  One
+modification we are considering is using a separate array or hash to
+maintain a copy of local link-state and allow for more efficient look-ups
+on all keys without impacting routing performance.
+
+The Link-State Client iteratively queries all other member nodes for their
+current link state tables and also performs probing to determine link state
+for the local node.  This link state information is then fed dynamically
+into a hash of Fibonacci-heap priority queues.  The hash contains one queue
+for each destination node.  The end result is a simplified version of
+Dijkstra's algorithm that outputs the shortest current one- or two-hop
+paths.  The Fibonacci heap is the most efficient data structure for
+Dijkstra's algorithm and minimizes computational overhead for our program.
+Limiting link-state data to one- and two-hop paths minimizes network
+traffic overhead and was shown by the original RON research to provide good
+improvements in fault tolerance and performance for most
+networks~\cite{Andersen_2001}.
+
+
+The messaging module of Ruby-RON is still in development and will utilize
+Ruby's built-in OpenSSL library to provide message encryption and traffic
+tunnels.  Message forwarding will rely on the routing tables maintained by
+the link-state client.
+
+The code of our Ruby-RON implementation can be found at \url{github.com/ailiop/cps214/tree/master/code/ruby-ron}.
+
 
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "project-cps214"
 %%% End: 
+
+%  LocalWords:  ASes VPN

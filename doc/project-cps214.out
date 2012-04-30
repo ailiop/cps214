@@ -1,7 +1,11 @@
+\BOOKMARK [1][-]{section*.1}{Abstract}{}
 \BOOKMARK [1][-]{section.1}{Introduction}{}
 \BOOKMARK [1][-]{section.2}{Emulab: Testing network implementation}{}
+\BOOKMARK [2][-]{subsection.2.1}{The network generator}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{The dark side of Emulab}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{An example network}{section.2}
 \BOOKMARK [1][-]{section.3}{Resilient Overlay Network \(RON\)}{}
-\BOOKMARK [2][-]{subsection.3.1}{The RON image}{section.3}
-\BOOKMARK [2][-]{subsection.3.2}{A minimal-functionality implementation}{section.3}
-\BOOKMARK [1][-]{section.4}{Case study: OpenVPN}{}
-\BOOKMARK [1][-]{section.5}{Conclusions}{}
+\BOOKMARK [2][-]{subsection.3.1}{Creating an Emulab-compatible RON image}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Ruby-RON}{section.3}
+\BOOKMARK [1][-]{section.4}{RON and Ruby-RON performance}{}
+\BOOKMARK [1][-]{section.5}{Future Work and Conclusions}{}

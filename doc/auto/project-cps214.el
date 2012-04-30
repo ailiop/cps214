@@ -7,12 +7,11 @@
      "lemma"
      "corollary")
     (LaTeX-add-labels
+     "sec:abstract"
      "sec:intro"
      "sec:network"
-     "sec:implementation"
      "sec:ron"
-     "sec:ruby-ron"
-     "sec:experiment"
+     "sec:performance"
      "sec:conclusions")
     (TeX-add-symbols
      '("mbs" 1)
@@ -21,9 +20,12 @@
      "visavis")
     (TeX-run-style-hooks
      "cleveref"
+     "breaklinks"
      "natbib"
      "numbers"
      "square"
+     "url"
+     "hyphens"
      "cmap"
      "resetfonts"
      "nth"
@@ -59,12 +61,12 @@
      "latex2e"
      "art11"
      "article"
+     "twopage"
      "11pt"
      "abstract"
      "introduction"
      "network"
      "ron"
-     "ruby-ron"
-     "experiment"
+     "performance"
      "conclusions")))
 

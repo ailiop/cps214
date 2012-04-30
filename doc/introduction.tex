@@ -1,6 +1,92 @@
-INTRODUCTION GOES HERE.
+Network security, at its core, is a rather dichotomous concept. The sole
+purpose of a network is communication; generally, the more open and
+trusting a network, the more easily it facilitates this communication. In
+contrast, the most secure system is one that is entirely isolated, yet what
+benefit can be obtained from such a device? In the end, any networked
+system is forced to sacrifice absolute security in order to allow
+productivity and growth.
+
+In the past two decades, the Internet has seen exponential growth and has
+become the heart of global communications.  This rapid growth has certainly
+been facilitated by technological advances but is also attributed to the
+open trust nature of the Internet Protocol suite.  Countless tools have
+been developed and applied across the Internet to improve security in this
+period, but despite all these efforts the growth of the Internet has been
+accompanied by parallel growth in cyber-crime.
+
+Hewlett-Packard recently funded a study of 50 large companies and found
+that the average cost of cyber-crime per company was approximately \$6
+million annually, with at least one successful attack per company per
+week~\cite{Ponemon_2011}.  Additionally, a series of high profile attacks
+against Sony's PlayStation Network last summer cost approximately \$189
+million~\cite{Aamoth_2011}.  In addition to these direct financial costs,
+attacks increasingly result in the exposure of privacy data and other
+sensitive information.  Stolen privacy data is the driving factor in
+growing costs associated with identity
+theft~\cite{Schultz_2011}. Hacktivist groups (i.e.\ hackers with a
+social/political agenda), such as \emph{Anonymous}, specifically target
+such information to undermine companies and groups they find to be at
+fault. Their most recent publicized attacks involved a radical neo-Nazi
+political group and a mining company in Finland~\cite{Brook_2011}. In both
+cases \emph{Anonymous} released individual names and other contact
+information encouraging harassment of members of both organizations.
+
+In addition to global financial implications, cyber-attacks are
+increasingly being acknowledged as a serious threat by governments around
+the world including the US and China. Both countries have recently
+activated full military commands to deal with such threats and expect
+cyber-warfare to be a reality in the \nth{21} century. As an example, the
+Stuxnet virus that disabled Iran's nuclear enrichment centers is widely
+speculated to have been developed and placed by foreign government
+agents~\cite{Broad_2011}.
+
+These examples clearly show the costly nature of network attacks and
+demonstrate the need for effective security.  Unfortunately, these examples
+also demonstrate that network attacks continue to occur with security
+systems in place. If a method of communication exists, it can be exploited
+for unintended use; and for every new security patch applied to a system a
+new exploit is discovered. In light of these continually emerging threats,
+how can an organization achieve acceptable levels of security?
+
+Virtual Private Networks (VPNs) and network tunneling in general are
+crucial elements of such security for modern commerce and government.  They
+allow organizations to exchange sensitive information over the Internet and
+other public networks with full confidence and in many ways have fueled the
+growth of the Internet and the Information Age.  For proof, we need look no
+further than Netscape's development of SSL tunneling in 1994 and the
+explosive growth of e-commerce and sites such as Amazon.com over the last
+two decades.
+
+Unfortunately, the story does not end with VPNs saving the world before
+bedtime!  As discussed above, the financial success of e-commerce has
+provided plenty of motivation for criminals and like most other security
+measures numerous exploits against VPNs, tunneling, and encryption systems
+continue to be discovered and patched in a perpetual digital arms race.
+
+One side effect of efforts to secure VPNs is a lowered tolerance to network
+instability.  Well-designed modern VPNs quickly kill connections when faced
+with link outages or intermittent stability.  This measure is designed to
+prevent man-in-the-middle attacks and other forms of eavesdropping or
+connection hijacking with the trade-off of artificially reducing
+availability.  On a system such as OpenVPN, timeout parameters can be
+adjusted to prevent a connection from being killed, but traffic sent during
+this period will simply fail to arrive, just as it would without a VPN; as
+the timeout interval becomes longer, more effort and care must be put into security.
+
+In many cases this trade-off is merely an annoyance, but for organizations
+relying on sensitive real time information (e.g.\ international financial
+transactions, military operations, medical evacuations, etc.) every second
+counts.  A three minute outage could literally be a matter of life and
+death in the latter two cases.
+
+The goal of this project is to incorporate RON and VPN software in a
+realistic test environment and determine the exact impact of their combined
+use on VPN availability and performance.
+
 
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "project-cps214"
 %%% End: 
+
+%  LocalWords:  neo OpenVPN

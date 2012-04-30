@@ -1,4 +1,5 @@
-\documentclass[11pt]{article}
+\documentclass[twopage,11pt]{article}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,8 +58,9 @@
 \usepackage[resetfonts]{cmap}
 
 % references
+\usepackage[hyphens]{url}
 \usepackage[numbers,square]{natbib}
-\usepackage[pdftex]{hyperref}
+\usepackage[pdftex,breaklinks]{hyperref}
 \usepackage{cleveref}
 
 
@@ -67,9 +69,10 @@
 % define coloured clickable links
 \hypersetup{%
 pdffitwindow=false,%
+pdfstartview={FitH},%
 colorlinks,%
-pdfauthor={K. Moses & A. S. Iliopoulos},%
-pdftitle={CPS 214: Project report},%
+pdfauthor={K. V. Moses & A. S. Iliopoulos},%
+pdftitle={Distributed Systems Performance on Resilient Overlay Networks},%
 pagebackref=false,%
 citecolor=PaleGreen4,%
 filecolor=DarkOrchid4,%
@@ -124,9 +127,6 @@ urlcolor=RoyalBlue4%
 \crefname{equation}{equation}{equations}
 \crefname{prog}{program}{programs}
 
-% define bibliography style
-\bibliographystyle{plain}
-
 % initial header and footer configuration
 \setlength{\headheight}{15.2pt}
 \renewcommand{\headrulewidth}{0.5pt}
@@ -143,8 +143,9 @@ urlcolor=RoyalBlue4%
 }
 
 % customize header and footer contents
-\fancyhead[L]{\fancyplain{}\footnotesize K.\ Moses \& A.\ S.\ Iliopoulos}
-\fancyhead[R]{\fancyplain{}\footnotesize CPS 214: Project report}
+\fancyhead[L]{\footnotesize K.\ V.\ Moses \& A.\ S.\ Iliopoulos}
+\fancyhead[R]{\footnotesize\scshape Distributed Systems Performance on Resilient
+  Overlay Networks}
 \fancyfoot[C]{\thepage}
 
 % words with accents that are annoying to type
@@ -154,29 +155,33 @@ urlcolor=RoyalBlue4%
 
 % -------------------- title -------------------- %
 
-\title{\textbf{CPS 214: Project report}}
+\title{Distributed Systems Performance on Resilient Overlay Networks}
 \author{%
   \begin{tabular}{c @{\qquad} c}
-    Kyle Moses & Alexandros-Stavros Iliopoulos\\
+    Kyle Vincent Moses%
+    \thanks{M.S.\ candidate, department of Computer Science, Duke University.}
+    & Alexandros-Stavros Iliopoulos%
+    \thanks{Ph.D.\ candidate, department of Computer Science, Duke
+      University.}\\
     \href{mailto:kmoses@cs.duke.edu}{\texttt{kmoses@cs.duke.edu}}
     & \href{mailto:ailiop@cs.duke.edu}{\texttt{ailiop@cs.duke.edu}}
-  \end{tabular}\\\\
-  Duke University}
+  \end{tabular}}
 \date{\today}
-
-
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENT
 
+
 \begin{document}
 
 \maketitle
 \onehalfspacing
 
-
+\label{sec:abstract}
+\phantomsection
+\addcontentsline{toc}{section}{Abstract}
 \begin{abstract}
   \input{abstract.tex}
 \end{abstract}
@@ -188,35 +193,25 @@ urlcolor=RoyalBlue4%
 \input{introduction.tex}
 
 
-\section{\emph{Emulab}: Testing network implementation}
+\section{Emulab: Testing network implementation}
 \label{sec:network}
 
 \input{network.tex}
 
 
 \section{Resilient Overlay Network (RON)}
-\label{sec:implementation}
-
-INTRODUCTORY TEXT FOR THE SECTION GOES HERE.
-
-\subsection{The RON image}
 \label{sec:ron}
 
 \input{ron.tex}
 
-\subsection{A minimal-functionality implementation}
-\label{sec:ruby-ron}
 
-\input{ruby-ron.tex}
+\section{RON and Ruby-RON performance}
+\label{sec:performance}
 
-
-\section{Case study: \emph{OpenVPN}}
-\label{sec:experiment}
-
-\input{experiment.tex}
+\input{performance.tex}
 
 
-\section{Conclusions}
+\section{Future Work and Conclusions}
 \label{sec:conclusions}
 
 \input{conclusions.tex}
@@ -226,7 +221,8 @@ INTRODUCTORY TEXT FOR THE SECTION GOES HERE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% REFERENCES
 
-\nocite{*}
+
+\bibliographystyle{plainnat}
 \bibliography{refs.bib}
 
 

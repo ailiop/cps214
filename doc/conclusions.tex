@@ -1,6 +1,29 @@
-CONCLUSIONS GO HERE.
+The results of our Ruby-RON experiment concur with those of both the RON
+and Scalable RON projects and show clear benefits for time-sensitive
+distributed applications using a functional RON.  Interesting directions
+for future research include considering security implications of using a
+RON in a true peer-to-peer environment and exploring methods of routing
+updates that might avoid the lower bounds involving direct comparisons of
+paths.  Additionally, the efficient algorithms used in SRON could be
+incorporated into Ruby-RON to provide a highly scalable,
+platform-independent architecture.
+
+Furthermore, we feel that the network generator that came out of our work
+on this project is an important tool in its own right, as it can greatly
+simplify the process of emulating a realistic network environment. We hope
+that even in cases where the desired network does not perfectly correspond
+to the functionality that is provided by our implementation (e.g.\ one
+might need to run IS-IS within the ASes, instead of OSPF), it could still
+be easily extensible or modifiable to allow for the extra
+functionality. Future work on this part would include consolidating certain
+parts of the associated code,\footnote{This is planned to be done soon, in
+  the hope that it might actually be useful to the community.} and perhaps
+providing greater flexibility in its use.
 
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "project-cps214"
 %%% End: 
+
+
+%  LocalWords:  ASes

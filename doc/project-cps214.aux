@@ -11,23 +11,60 @@
 \global \let \hyper@last\relax 
 \fi
 
-\bibstyle{plain}
-\citation{*}
-\bibdata{refs.bib}
+\citation{Ponemon_2011}
+\citation{Aamoth_2011}
+\citation{Schultz_2011}
+\citation{Brook_2011}
+\newlabel{sec:abstract}{{}{1}{\relax }{}{}}
+\@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \newlabel{sec:intro}{{[section][1][]1}{1}{Introduction\relax }{section.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}\emph  {Emulab}: Testing network implementation}{1}{section.2}}
-\newlabel{sec:network}{{[section][2][]2}{1}{\emph {Emulab}: Testing network implementation\relax }{section.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Resilient Overlay Network (RON)}{1}{section.3}}
-\newlabel{sec:implementation}{{[section][3][]3}{1}{Resilient Overlay Network (RON)\relax }{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}The RON image}{1}{subsection.3.1}}
-\newlabel{sec:ron}{{[subsection][1][3]3.1}{1}{The RON image\relax }{subsection.3.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}A minimal-functionality implementation}{1}{subsection.3.2}}
-\newlabel{sec:ruby-ron}{{[subsection][2][3]3.2}{1}{A minimal-functionality implementation\relax }{subsection.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Case study: \emph  {OpenVPN}}{1}{section.4}}
-\newlabel{sec:experiment}{{[section][4][]4}{1}{Case study: \emph {OpenVPN}\relax }{section.4}{}}
-\bibcite{RON}{{1}{}{{}}{{}}}
-\bibcite{SRON}{{2}{}{{}}{{}}}
-\providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{2}{section.5}}
-\newlabel{sec:conclusions}{{[section][5][]5}{2}{Conclusions\relax }{section.5}{}}
+\citation{Broad_2011}
+\citation{Emulab}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Emulab: Testing network implementation}{3}{section.2}}
+\newlabel{sec:network}{{[section][2][]2}{3}{Emulab: Testing network implementation\relax }{section.2}{}}
+\newlabel{req:scalable}{{[enumi][1][]a}{3}{Emulab: Testing network implementation\relax }{Item.1}{}}
+\newlabel{req:bgp}{{[enumi][2][]b}{3}{Emulab: Testing network implementation\relax }{Item.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}The network generator}{3}{subsection.2.1}}
+\newlabel{sec:netgen}{{[subsection][1][2]2.1}{3}{The network generator\relax }{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Topology}{3}{section*.2}}
+\@writefile{toc}{\contentsline {paragraph}{Routing}{4}{section*.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Emulab Linktest log for an experiment of $36$ nodes. The link \texttt  {ext-1-1-2-1} seems to exhibit a very high packet loss rate, whereas the link \texttt  {lan-4-1} appears to be dead.\relax }}{5}{figure.caption.4}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:link-errors}{{[figure][1][2]2.1}{5}{Emulab Linktest log for an experiment of $36$ nodes. The link \texttt {ext-1-1-2-1} seems to exhibit a very high packet loss rate, whereas the link \texttt {lan-4-1} appears to be dead.\relax \relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The dark side of Emulab}{5}{subsection.2.2}}
+\newlabel{sec:emulab-problems}{{[subsection][2][2]2.2}{5}{The dark side of Emulab\relax }{subsection.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}An example network}{6}{subsection.2.3}}
+\newlabel{sec:network-example}{{[subsection][3][2]2.3}{6}{An example network\relax }{subsection.2.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces A network topology of 8 ASes, with 3 router nodes and 2 terminal nodes each. The gray borders delimit individual ASes.\relax }}{6}{figure.caption.5}}
+\newlabel{fig:big-net}{{[figure][2][2]2.2}{6}{A network topology of 8 ASes, with 3 router nodes and 2 terminal nodes each. The gray borders delimit individual ASes.\relax \relax }{figure.caption.5}{}}
+\citation{Andersen_2001}
+\citation{Andersen_2001}
+\citation{Sontag_2009}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Resilient Overlay Network (RON)}{7}{section.3}}
+\newlabel{sec:ron}{{[section][3][]3}{7}{Resilient Overlay Network (RON)\relax }{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Creating an Emulab-compatible RON image}{7}{subsection.3.1}}
+\newlabel{sec:ron-image}{{[subsection][1][3]3.1}{7}{Creating an Emulab-compatible RON image\relax }{subsection.3.1}{}}
+\citation{Baldine_2000}
+\citation{Andersen_2001}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Ruby-RON}{9}{subsection.3.2}}
+\newlabel{sec:ruby-ron}{{[subsection][2][3]3.2}{9}{Ruby-RON\relax }{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}RON and Ruby-RON performance}{10}{section.4}}
+\newlabel{sec:performance}{{[section][4][]4}{10}{RON and Ruby-RON performance\relax }{section.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces The testing network. The terminal nodes (i.e.\ the ones that form the overlay network) are circled.\relax }}{11}{figure.caption.6}}
+\newlabel{fig:ladybug-net-ron}{{[figure][1][4]4.1}{11}{The testing network. The terminal nodes (i.e.\ the ones that form the overlay network) are circled.\relax \relax }{figure.caption.6}{}}
+\bibstyle{plainnat}
+\bibdata{refs.bib}
+\bibcite{Aamoth_2011}{{1}{2011}{{Aamoth}}{{}}}
+\bibcite{Andersen_2001}{{2}{2001}{{Andersen et~al.}}{{Andersen, Balakrishnan, Kaashoek, and Morris}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Average routing outage intervals after killing a link in the network in \cref  {fig:ladybug-net-ron}. ``Standard'' means that no overlay network scheme was employed.\relax }}{12}{figure.caption.7}}
+\newlabel{fig:perf-ladybug}{{[figure][2][4]4.2}{12}{Average routing outage intervals after killing a link in the network in \cref {fig:ladybug-net-ron}. ``Standard'' means that no overlay network scheme was employed.\relax \relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Future Work and Conclusions}{12}{section.5}}
+\newlabel{sec:conclusions}{{[section][5][]5}{12}{Future Work and Conclusions\relax }{section.5}{}}
+\bibcite{Baldine_2000}{{3}{2000}{{Baldine}}{{}}}
+\bibcite{Broad_2011}{{4}{2011}{{Broad et~al.}}{{Broad, Markoff, and Sanger}}}
+\bibcite{Brook_2011}{{5}{2011}{{Brook}}{{}}}
+\bibcite{Ponemon_2011}{{6}{2011}{{Institute}}{{}}}
+\bibcite{Schultz_2011}{{7}{2011}{{Saranow~Schultz}}{{}}}
+\bibcite{Sontag_2009}{{8}{2009}{{Sontag et~al.}}{{Sontag, Zhang, Phanishayee, Andersen, and Karger}}}
+\bibcite{Emulab}{{9}{2002}{{White et~al.}}{{White, Lepreau, Stoller, Ricci, Guruprasad, Newbold, Hibler, Barb, and Joglekar}}}

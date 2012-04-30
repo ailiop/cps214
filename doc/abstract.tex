@@ -1,6 +1,27 @@
-ABSTRACT GOES HERE.
+A primary benefit of Resilient Overlay Networks (RONs) is their ability to
+greatly improve the reliability of Internet packet delivery by detecting
+and recovering from outages and path failures more quickly than current
+inter-domain routing protocols.  They accomplish this feat at the
+application layer by reducing the size of the problem to only include
+member nodes.  First generation RONs could support networks of
+approximately 50 nodes and recent improvements have increased this size to
+approximately 300 nodes.  RON systems have been shown to reduce link outage
+during network re-convergence to around 18 seconds instead of several
+minutes as can often occur in BGP. Most distributed applications are
+sensitive to intermittent network outages, and often are used to carry
+sensitive real-time information. Both RON papers discuss VPNs and other
+time-sensitive applications, but their experiments only show how RONs
+impact route convergence in general terms, without showing the end impact
+for specific applications. We seek to confirm the claims of the RON papers
+and build a Ruby-based application interface to allow any application to
+use a RON for communication, as well as provide a realistic and easy to set
+up network environment that can be used as testing grounds for a wide range
+of experiments.
+
 
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "project-cps214"
 %%% End: 
+
+% LocalWords:  VPN BGP RONs

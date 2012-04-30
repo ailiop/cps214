@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.11)  22 APR 2012 17:59
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.11.12)  29 APR 2012 22:37
 entering extended mode
  %&-line parsing enabled.
 **\input project-cps214.tex
@@ -337,6 +337,10 @@ Package: nth 2002/02/27
 (/usr/share/texmf-texlive/tex/latex/cmap/cmap.sty
 Package: cmap 2008/03/06 v1.0h CMap support: searchable PDF
 )
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
 (/usr/share/texmf-texlive/tex/latex/natbib/natbib.sty
 Package: natbib 2009/07/16 8.31 (PWD, AO)
 \bibhang=\skip67
@@ -385,6 +389,7 @@ Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
 Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
 t (HO)
 ))
+Package hyperref Info: Option `breaklinks' set `true' on input line 2864.
 Package hyperref Info: Hyper figures OFF on input line 2975.
 Package hyperref Info: Link nesting OFF on input line 2980.
 Package hyperref Info: Hyper index ON on input line 2983.
@@ -393,12 +398,7 @@ Package hyperref Info: Backreferencing OFF on input line 2995.
 
 Implicit mode ON; LaTeX internals redefined
 Package hyperref Info: Bookmarks ON on input line 3191.
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
-\Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
-)
 LaTeX Info: Redefining \url on input line 3428.
-
 (/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
 Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
 
@@ -458,37 +458,41 @@ LaTeX Info: Redefining \Crefrange on input line 1607.
 Package cleveref Info: loaded `english' language definitions on input line 3148
 .
 )
-Package hyperref Info: Option `pdffitwindow' set `false' on input line 78.
-Package hyperref Info: Option `colorlinks' set `true' on input line 78.
+Package hyperref Info: Option `pdffitwindow' set `false' on input line 81.
+Package hyperref Info: Option `colorlinks' set `true' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `alignment tab' on input line 78.
+(hyperref)                removing `alignment tab' on input line 81.
 
 
 Package hyperref Warning: Option `pagebackref' has already been used,
-(hyperref)                setting the option has no effect on input line 78.
+(hyperref)                setting the option has no effect on input line 81.
 
 \@float@every@prog=\toks36
 \c@prog=\count136
 \c@theorem=\count137
+
+LaTeX Warning: Unused global option(s):
+    [twopage].
+
 (./project-cps214.aux)
 \openout1 = `project-cps214.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
 
 *geometry auto-detecting driver*
 *geometry detected driver: pdftex*
@@ -535,7 +539,7 @@ driver: pdftex
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-(/usr/share/texmf/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count139
 \scratchdimen=\dimen148
@@ -548,7 +552,7 @@ Package caption Info: End \AtBeginDocument code.
 \MPnumerator=\count143
 \everyMPtoPDFconversion=\toks38
 )
-Package hyperref Info: Link coloring ON on input line 174.
+Package hyperref Info: Link coloring ON on input line 177.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -557,60 +561,108 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 174.
-LaTeX Info: Redefining \pageref on input line 174.
+LaTeX Info: Redefining \ref on input line 177.
+LaTeX Info: Redefining \pageref on input line 177.
 
 (./project-cps214.out) (./project-cps214.out)
 \@outlinefile=\write3
 \openout3 = `project-cps214.out'.
 
 \AtBeginShipoutBox=\box33
-LaTeX Info: Redefining \ref on input line 174.
-LaTeX Info: Redefining \ref on input line 174.
+LaTeX Info: Redefining \ref on input line 177.
+LaTeX Info: Redefining \ref on input line 177.
 <<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
-LaTeX Font Info:    Try loading font information for U+msa on input line 177.
+LaTeX Font Info:    Try loading font information for U+msa on input line 180.
  (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 177.
+LaTeX Font Info:    Try loading font information for U+msb on input line 180.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 177.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 180.
 
 (/usr/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)<<ot1tt.cmap>>
-(./abstract.tex) (./introduction.tex) (./network.tex) (./ron.tex)
-(./ruby-ron.tex) (./experiment.tex) (./conclusions.tex) (./project-cps214.bbl
-[1
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 180.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 
-Package caption Warning: Unused \captionsetup[prog] on input line 92.
+(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 180.
+<<ot1tt.cmap>>
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 180.
+
+(./abstract.tex) (./introduction.tex [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]) (./network.tex [3] [4
+]
+<figs/link-errors-1.png, id=120, 476.78125pt x 146.5475pt>
+File: figs/link-errors-1.png Graphic file (type png)
+
+<use figs/link-errors-1.png>
+<figs/link-errors-2.png, id=121, 1158.3275pt x 239.89626pt>
+File: figs/link-errors-2.png Graphic file (type png)
+
+<use figs/link-errors-2.png> [5 <./figs/link-errors-1.png (PNG copy)> <./figs/l
+ink-errors-2.png (PNG copy)>]
+<figs/big-net.png, id=129, 854.19125pt x 912.40875pt>
+File: figs/big-net.png Graphic file (type png)
+ <use figs/big-net.png>)
+[6 <./figs/big-net.png>] (./ron.tex [7]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+ [8] [9]) (./performance.tex
+<figs/ladybug-net-ron.png, id=165, 848.16875pt x 808.01875pt>
+File: figs/ladybug-net-ron.png Graphic file (type png)
+
+<use figs/ladybug-net-ron.png>
+<figs/route-outages-notitle.png, id=168, 750.805pt x 387.4475pt>
+File: figs/route-outages-notitle.png Graphic file (type png)
+
+<use figs/route-outages-notitle.png>) [10] [11 <./figs/ladybug-net-ron.png (PNG
+ copy)>] (./conclusions.tex) (./project-cps214.bbl [12 <./figs/route-outages-no
+title.png>])
+
+Package caption Warning: Unused \captionsetup[prog] on input line 95.
 See the caption package documentation for explanation.
 
-[2] (./project-cps214.aux) ) 
+[13] (./project-cps214.aux) ) 
 Here is how much of TeX's memory you used:
- 10735 strings out of 493848
- 164210 string characters out of 1152823
- 301502 words of memory out of 3000000
- 13762 multiletter control sequences out of 15000+50000
- 12078 words of font info for 46 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 38i,12n,49p,341b,321s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx1
-2.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></u
+ 10926 strings out of 494964
+ 167221 string characters out of 1180491
+ 306149 words of memory out of 3000000
+ 13786 multiletter control sequences out of 15000+50000
+ 18181 words of font info for 74 fonts, out of 3000000 for 9000
+ 81 hyphenation exceptions out of 8191
+ 38i,17n,43p,341b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
 sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
 mf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmtt12.pfb>
-Output written on project-cps214.pdf (2 pages, 118046 bytes).
+onts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
+m/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on project-cps214.pdf (13 pages, 450074 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 280 PDF objects out of 1000 (max. 8388607)
+ 55 named destinations out of 1000 (max. 500000)
+ 134 words of extra memory for PDF output out of 10000 (max. 10000000)
 
