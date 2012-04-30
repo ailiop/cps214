@@ -95,8 +95,8 @@ fail and become unresponsive immediately after booting.  It wasn't even
 possible to log into the systems through Emulab's back door console system.
 After extensive troubleshooting, we learned that when IP Firewall is
 enabled it immediately blocks all network traffic by default!  This
-“feature” was therefore blocking access from the Emulab control network and
-thereby preventing the successful application of all Emulab start-up
+``feature'' was therefore blocking access from the Emulab control network
+and thereby preventing the successful application of all Emulab start-up
 scripts, which caused the control system to register a boot failure every
 time.  The solution to this problem was to create a startup script that
 dynamically added both modules after Emulab's boot process and then
@@ -168,13 +168,13 @@ traffic overhead and was shown by the original RON research to provide good
 improvements in fault tolerance and performance for most
 networks~\cite{Andersen_2001}.
 
-
 The messaging module of Ruby-RON is still in development and will utilize
 Ruby's built-in OpenSSL library to provide message encryption and traffic
 tunnels.  Message forwarding will rely on the routing tables maintained by
 the link-state client.
 
-The code of our Ruby-RON implementation can be found at \url{github.com/ailiop/cps214/tree/master/code/ruby-ron}.
+The code of our Ruby-RON implementation can be found at
+\url{github.com/ailiop/cps214/tree/master/code/ruby-ron}.
 
 
 %%% Local Variables: 
